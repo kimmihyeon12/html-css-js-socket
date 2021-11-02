@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입</title>
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+  
+  <form method="post" action="/register" class="flex flex-col w-[100vw] h-[100vh] justify-center items-center">
+    <h1 class="text-[5vw] mb-4">register</h1>
+    <div class="flex mb-[2vw]"><p class="w-[12vw]">이름</p><input class="border user-pw " type="text" name="name"></div>
+    <div class="flex mb-[2vw]"><p class="w-[12vw]">이메일</p><input class="border user-id" type="text" name="email"></div>
+    <div class="flex mb-[2vw]"><p class="w-[12vw]">비밀번호</p><input class="border user-pw " type="password" name="passwd"></div>
+    <div class="flex mb-[2vw]"><p class="w-[12vw]">비밀번호 확인</p><input class="border user-pw " type="password" name="passwdConfirm"></div>
+    <div class="flex">
+      <button type="submit" class="login-btn mt-[2vw] border p-[1vw] hover:bg-[pink] ml-[10vw] ">회원가입</button>
+    </div>
+  </form>
+  <script type="module" src="/js/register.js"></script>
+</body>
+</html>

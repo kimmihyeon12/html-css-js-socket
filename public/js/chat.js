@@ -3,7 +3,6 @@ import { userList } from '../js/data/user.js'
 // socket.io 서버에 접속한다
 const socket = io()
 
-//const nickname = document.querySelector('.nickname')
 const chatList = document.querySelector('.chatting-list')
 const chatInput = document.querySelector('.chatting-input')
 const sendButton = document.querySelector('.send-button')
@@ -13,7 +12,7 @@ const otherUserId = originPath.split('chat/')[1]
 window.addEventListener('DOMContentLoaded', async () => {
   let nickname
   let currentUserId
-  const data = await fetch('http://localhost:5000/user/auth')
+  const data = await fetch('http://172.30.1.27:5000/user/auth')
     .then((response) => response.json())
     .then((data) => data)
   currentUserId = data.data.userId
@@ -45,20 +44,28 @@ window.addEventListener('DOMContentLoaded', async () => {
     this.time = time
 
     this.makeLi = () => {
-      let otherUser
+      // let otherUser
+      // for (let i = 0; i < userList.length; i++) {
+      //   if (userList[i].id === otherUserId) {
+      //     otherUser = userList[i]
+      //   }
+      // }
+      let count
       for (let i = 0; i < userList.length; i++) {
-        if (userList[i].id === otherUserId) {
-          otherUser = userList[i]
+        if (userList[i].id === this.id) {
+          count = i
         }
       }
-      console.log(currentUserId)
+      console.log('currentUserId')
       console.log(this.id)
       const li = document.createElement('li')
       li.classList.add(currentUserId === this.id ? 'sent' : 'received')
       const dom = `
       <span class="profile">
-        <span class="user">${this.name}</span>
-          <img class="image" src="https://placeimg.com/50/50/any" alt="">
+        <span class="user">${
+          currentUserId === this.id ? '나' : this.name
+        }</span>
+          <img class="image" src=${userList[count].img} alt="">
         </span>
         <span class="message">
         ${this.msg}

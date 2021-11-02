@@ -1,3 +1,4 @@
+'use strict'
 const express = require('express')
 const app = express()
 const path = require('path')
@@ -9,6 +10,9 @@ const io = socketIO(server)
 const moment = require('moment')
 const pageRouter = require('./src/routers')
 var session = require('express-session')
+const bodyParser = require('body-parser')
+require('dotenv').config()
+//database
 
 io.on('connection', (socket) => {
   socket.on('chatting', (data) => {

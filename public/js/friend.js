@@ -17,9 +17,10 @@ for (let i = 0; i < userList.length; i++) {
 
 // 로그인한 id 와 db에(아직x) 있는 id 같으면 '나'로 표시
 window.addEventListener('DOMContentLoaded', async () => {
-  const data = await fetch('http://localhost:5000/user/auth')
+  const data = await fetch('http://172.30.1.27:5000/user/auth')
     .then((response) => response.json())
     .then((data) => data)
+  console.log(data)
   const userId = data.data.userId
   for (let i = 0; i < userList.length; i++) {
     if (userId === userList[i].id) {
