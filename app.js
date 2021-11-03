@@ -12,8 +12,9 @@ const pageRouter = require('./src/routers')
 var session = require('express-session')
 const bodyParser = require('body-parser')
 require('dotenv').config()
+const cors = require('cors')
 //database
-
+app.use(cors())
 io.on('connection', (socket) => {
   socket.on('chatting', (data) => {
     console.log(2)

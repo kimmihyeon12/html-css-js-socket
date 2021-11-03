@@ -12,6 +12,29 @@ const conn = {
 var connection = mysql.createConnection(conn) // DB 커넥션 생성
 connection.connect()
 
+exports.selectAll = () => {
+  const query = `select id,img,name,email from users`
+  return new Promise(function (resolve, reject) {
+    connection.query(query, null, function (err, results, fields) {
+      if (err) reject(err)
+      resolve(results)
+    })
+  })
+    .then((data) => {
+      return {
+        success: false,
+        data: data,
+      }
+    })
+    .catch((err) => {
+      return {
+        success: false,
+        data: 'error',
+      }
+    })
+  connection.end()
+}
+
 exports.selectEmail = (email) => {
   const query = `select * from users where email='${email}';`
   const checkEmail = CheckEmail(email)
@@ -35,6 +58,54 @@ exports.selectEmail = (email) => {
       return {
         success: true,
         message: '사용하실 수 있는 이메일 입니다',
+      }
+    })
+    .catch((err) => {
+      console.log('error')
+      return {
+        success: false,
+        message: 'error',
+      }
+    })
+  connection.end()
+}
+
+exports.selectPw = (email) => {
+  const query = `select passwd from users where email='${email}';`
+
+  return new Promise(function (resolve, reject) {
+    connection.query(query, null, function (err, results, fields) {
+      if (err) reject(err)
+      resolve(results)
+    })
+  })
+    .then((data) => {
+      return {
+        data: data,
+      }
+    })
+    .catch((err) => {
+      console.log('error')
+      return {
+        success: false,
+        message: 'error',
+      }
+    })
+  connection.end()
+}
+
+exports.selectId = (email) => {
+  const query = `select id from users where email='${email}';`
+
+  return new Promise(function (resolve, reject) {
+    connection.query(query, null, function (err, results, fields) {
+      if (err) reject(err)
+      resolve(results)
+    })
+  })
+    .then((data) => {
+      return {
+        data: data,
       }
     })
     .catch((err) => {

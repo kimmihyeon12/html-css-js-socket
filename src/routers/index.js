@@ -2,37 +2,26 @@
 
 const express = require('express')
 const router = express.Router()
-const userList = require('../repository/user.js')
 const userController = require('../controller/user.controller')
 router.get('/', (req, res) => {
   res.render('index')
 })
 
+//로그인
 router.get('/login', (req, res) => {
   res.render('login')
 })
 
-router.post('/login', (req, res) => {
-  const { userid, passwd } = req.body
+router.post('/login', userController.login)
 
-  for (let i = 0; i < userList.userList.length; i++) {
-    if (userList.userList[i].userId === userid) {
-      console.log('아이디일치')
-      if (userList.userList[i].passwd === passwd) {
-        console.log('비밀번호일치')
-        req.session.user_id = userList.userList[i].id
-        res.redirect('/friend')
-        return
-      }
-    }
-  }
-  console.log('둘다불일치')
-})
-
+//회원가입
 router.get('/register', (req, res) => {
   res.render('register')
 })
 router.post('/register', userController.register)
+
+//유저정보 얻어오기
+router.get('/user', userController.allfind)
 
 router.get('/friend', (req, res) => {
   res.render('friendList')
