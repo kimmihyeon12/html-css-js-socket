@@ -580,9 +580,6 @@ video {
 .mr-3 {
 	margin-right: 0.75rem;
 }
-.ml-\[60vw\] {
-	margin-left: 60vw;
-}
 .mb-4 {
 	margin-bottom: 1rem;
 }
@@ -594,9 +591,6 @@ video {
 }
 .ml-\[4vw\] {
 	margin-left: 4vw;
-}
-.ml-\[20vw\] {
-	margin-left: 20vw;
 }
 .flex {
 	display: flex;
@@ -619,6 +613,9 @@ video {
 .w-\[10vw\] {
 	width: 10vw;
 }
+.w-\[70vw\] {
+	width: 70vw;
+}
 .w-\[100vw\] {
 	width: 100vw;
 }
@@ -627,33 +624,6 @@ video {
 }
 .w-\[12vw\] {
 	width: 12vw;
-}
-.w-\[30vww\] {
-	width: 30vww;
-}
-.w-\[30vw\] {
-	width: 30vw;
-}
-.w-\[20vw\] {
-	width: 20vw;
-}
-.w-\[15vw\] {
-	width: 15vw;
-}
-.w-\[11vw\] {
-	width: 11vw;
-}
-.w-\[40vw\] {
-	width: 40vw;
-}
-.w-\[60vw\] {
-	width: 60vw;
-}
-.w-\[65vw\] {
-	width: 65vw;
-}
-.w-\[70vw\] {
-	width: 70vw;
 }
 .cursor-pointer {
 	cursor: pointer;

@@ -9,6 +9,9 @@ router.get('/', (req, res) => {
 
 //로그인
 router.get('/login', (req, res) => {
+  if (!(req.session.user_id === undefined)) {
+    res.redirect('friend')
+  }
   res.render('login')
 })
 
@@ -20,13 +23,14 @@ router.get('/register', (req, res) => {
 })
 router.post('/register', userController.register)
 
-//유저정보 얻어오기
-router.get('/user', userController.allfind)
-
 router.get('/friend', (req, res) => {
   res.render('friendList')
 })
 
+//유저정보 얻어오기
+//모든 유저정보 얻어오기
+router.get('/user', userController.allfind)
+//현재 로그인한 id 얻어오기
 router.get('/user/auth', (req, res) => {
   console.log(`user/auth 요청옴!! ${req.session.user_id}`)
   return res.status(200).json({
@@ -35,6 +39,8 @@ router.get('/user/auth', (req, res) => {
     },
   })
 })
+//한명의 유저정보 얻어오기
+router.get('/user/:id', userController.onefind)
 
 router.get('/chat/:id', (req, res) => {
   res.render('chat')

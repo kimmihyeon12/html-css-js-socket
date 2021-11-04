@@ -12,6 +12,29 @@ const conn = {
 var connection = mysql.createConnection(conn) // DB 커넥션 생성
 connection.connect()
 
+exports.selectOne = (id) => {
+  const query = `select id,img,name,email from users where id = ${id};`
+  return new Promise(function (resolve, reject) {
+    connection.query(query, null, function (err, results, fields) {
+      if (err) reject(err)
+      resolve(results)
+    })
+  })
+    .then((data) => {
+      return {
+        success: false,
+        data: data,
+      }
+    })
+    .catch((err) => {
+      return {
+        success: false,
+        data: 'error',
+      }
+    })
+  connection.end()
+}
+
 exports.selectAll = () => {
   const query = `select id,img,name,email from users`
   return new Promise(function (resolve, reject) {
@@ -128,7 +151,6 @@ exports.insert = (name, email, passwd) => {
     })
   })
     .then((data) => {
-      console.log(data)
       return {
         success: true,
         message: 'success',

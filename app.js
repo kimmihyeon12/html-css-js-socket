@@ -13,15 +13,15 @@ var session = require('express-session')
 const bodyParser = require('body-parser')
 require('dotenv').config()
 const cors = require('cors')
-//database
 app.use(cors())
 io.on('connection', (socket) => {
   socket.on('chatting', (data) => {
     console.log(2)
-    const { id, name, msg } = data
+    const { id, name, img, msg } = data
     io.emit('chatting', {
       id,
       name,
+      img,
       msg,
       time: moment(new Date()).format('h:mm A'),
     })
@@ -33,6 +33,9 @@ app.use(
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
+    cookie: {
+      maxAge: 1000 * 60 * 60, // 쿠키 유효기간 1시간
+    },
   }),
 )
 

@@ -2,7 +2,7 @@ const friendList = document.querySelector('.friend-list')
 
 window.addEventListener('DOMContentLoaded', async () => {
   //모든 user정보 가져오기
-  const userList = await fetch('http://172.30.1.27:5000/user')
+  const userList = await fetch('/user')
     .then((response) => response.json())
     .then((data) => data.data)
   console.log(userList)
@@ -25,7 +25,8 @@ window.addEventListener('DOMContentLoaded', async () => {
     })
   }
 
-  const data = await fetch('http://172.30.1.27:5000/user/auth')
+  //로그인한 user '나'로 표시
+  const data = await fetch('/user/auth')
     .then((response) => response.json())
     .then((data) => data)
   console.log(data)
@@ -36,7 +37,11 @@ window.addEventListener('DOMContentLoaded', async () => {
       const li = document.createElement('li')
       li.className = `li${i} flex items-center pt-[2vw] pl-[2vw] border-b pb-[2vw] bg-[#c7c7c7]`
       li.innerHTML = `
-        <img class="w-[10vw] h-[10vw] rounded-full mr-3 " src=${userList[i].img} alt="">
+        <img class="w-[10vw] h-[10vw] rounded-full mr-3 " src=${
+          userList[i].img === null
+            ? 'https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-176213403491/media/magazine_img/magazine_280/5-3-%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg'
+            : userList[i].img
+        } alt="">
         <p class="user-name${i} text-[2.8vw] ">나</p>`
       friendList.prepend(li)
     }
