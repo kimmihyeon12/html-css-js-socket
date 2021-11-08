@@ -580,6 +580,12 @@ video {
 .mr-3 {
 	margin-right: 0.75rem;
 }
+.ml-\[1vw\] {
+	margin-left: 1vw;
+}
+.mr-\[1vw\] {
+	margin-right: 1vw;
+}
 .mb-4 {
 	margin-bottom: 1rem;
 }
@@ -591,12 +597,6 @@ video {
 }
 .ml-\[4vw\] {
 	margin-left: 4vw;
-}
-.ml-\[1vw\] {
-	margin-left: 1vw;
-}
-.mr-\[1vw\] {
-	margin-right: 1vw;
 }
 .flex {
 	display: flex;
@@ -687,17 +687,11 @@ video {
 .text-\[3\.4vw\] {
 	font-size: 3.4vw;
 }
-.text-\[5vw\] {
-	font-size: 5vw;
-}
-.text-\[3vw\] {
-	font-size: 3vw;
-}
-.text-\[2vw\] {
-	font-size: 2vw;
-}
 .text-\[2\.5vw\] {
 	font-size: 2.5vw;
+}
+.text-\[5vw\] {
+	font-size: 5vw;
 }
 .font-bold {
 	font-weight: 700;

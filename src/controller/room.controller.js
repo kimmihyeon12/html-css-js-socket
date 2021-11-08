@@ -12,28 +12,27 @@ exports.createRoom = async (req, res) => {
   }
   console.log(`id1 $${id1} id2 ${id2}`)
   const selectResult = await roomRepository.select(id1, id2)
+  let room_id;
   //현재 채팅방이 없는 상태이면
-  console.log(selectResult.data.length)
   if (selectResult.data.length == 0) {
     const result = await roomRepository.insert(id1, id2)
     console.log(result)
+    room_id = result.insertId;
   } else {
-    console.log(selectResult)
+    room_id = selectResult.data[0].room_id
   }
 
-  console.log(result)
-  // const result = await roomRepository.insert()
-  // console.log(result)
-  // return res.status(200).json(userData)
+  console.log(room_id)
+   return res.status(200).json({room_id:room_id})
 }
-//룸번호 얻어오기
-exports.selectRoom = async (req, res) => {
-  let temp
-  if (id1 > id2) {
-    temp = id1
-    id1 = id2
-    id2 = temp
-  }
-  const result = await roomRepository.select(id1, id2)
-  console.log(result)
-}
+// //룸번호 얻어오기
+// exports.selectRoom = async (req, res) => {
+//   let temp
+//   if (id1 > id2) {
+//     temp = id1
+//     id1 = id2
+//     id2 = temp
+//   }
+//   const result = await roomRepository.select(id1, id2)
+//   console.log(result)
+// }

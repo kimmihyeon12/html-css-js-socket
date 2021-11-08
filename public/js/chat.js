@@ -25,7 +25,8 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   const roomNumber = await fetch(`/room/${otherUserId}`)
     .then((response) => response.json())
-    .then((data) => data)
+    .then((data) => data.room_id)
+    console.log(`roomNumber ${roomNumber}`)
 
   socket.emit('joinRoom', num)
 
