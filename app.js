@@ -14,11 +14,22 @@ const bodyParser = require('body-parser')
 require('dotenv').config()
 const cors = require('cors')
 app.use(cors())
+
+let room = ['room1', 'room2']
+let a = 0
+
 io.on('connection', (socket) => {
-  socket.on('chatting', (data) => {
-    console.log(2)
+  console.log('connection')
+  socket.on('joinRoom', (num) => {
+    socket.join(room[num])
+    console.log('joinroom')
+  })
+  socket.on('chatting', function (num, data) {
+    console.log('chatting')
     const { id, name, img, msg } = data
-    io.emit('chatting', {
+    console.log(data)
+
+    io.to(room[num]).emit('chatting', {
       id,
       name,
       img,

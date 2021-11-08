@@ -592,6 +592,12 @@ video {
 .ml-\[4vw\] {
 	margin-left: 4vw;
 }
+.ml-\[1vw\] {
+	margin-left: 1vw;
+}
+.mr-\[1vw\] {
+	margin-right: 1vw;
+}
 .flex {
 	display: flex;
 }
@@ -637,6 +643,9 @@ video {
 .justify-center {
 	justify-content: center;
 }
+.justify-between {
+	justify-content: space-between;
+}
 .justify-around {
 	justify-content: space-around;
 }
@@ -680,6 +689,15 @@ video {
 }
 .text-\[5vw\] {
 	font-size: 5vw;
+}
+.text-\[3vw\] {
+	font-size: 3vw;
+}
+.text-\[2vw\] {
+	font-size: 2vw;
+}
+.text-\[2\.5vw\] {
+	font-size: 2.5vw;
 }
 .font-bold {
 	font-weight: 700;

@@ -7,7 +7,11 @@ exports.allfind = async (req, res) => {
 exports.onefind = async (req, res) => {
   let id = req.params.id
   const userData = await userRepository.selectOne(id)
-  console.log(userData)
+  //console.log(userData)
+  return res.status(200).json(userData)
+}
+exports.currentConnecting = async (req, res) => {
+  const userData = await userRepository.selectLoginUser()
   return res.status(200).json(userData)
 }
 
@@ -63,7 +67,8 @@ exports.login = async (req, res) => {
 
     if (vaildPasswd.data[0].passwd === passwd) {
       req.session.user_id = vaildId.data[0].id
-      console.log(req.session.user_id)
+      await userRepository.updateLoginStatus(req.session.user_id, true)
+      //console.log(req.session.user_id)
       res.send(
         "<script>alert('로그인 완료!');location.href='/friend';</script>",
       )

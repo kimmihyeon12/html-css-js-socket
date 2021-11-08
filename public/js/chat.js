@@ -8,7 +8,9 @@ const chatInput = document.querySelector('.chatting-input')
 const sendButton = document.querySelector('.send-button')
 const originPath = window.location.href
 const otherUserId = originPath.split('chat/')[1]
-console.log('chat')
+let room = ['room1', 'room2']
+let num = 0
+
 window.addEventListener('DOMContentLoaded', async () => {
   console.log('chat dom load')
   let nickname
@@ -17,17 +19,15 @@ window.addEventListener('DOMContentLoaded', async () => {
     .then((response) => response.json())
     .then((data) => data)
 
-  // const otherUserData = await fetch(`/user/${otherUserId}`)
-  //   .then((response) => response.json())
-  //   .then((data) => data)
-  console.log(myUserId.data.userId)
   const myUserData = await fetch(`/user/${myUserId.data.userId}`)
     .then((response) => response.json())
     .then((data) => data)
 
-  console.log(myUserData.data[0].id)
-  console.log(myUserData.data[0].name)
-  console.log(myUserData.data[0].img)
+  const roomNumber = await fetch(`/room/${otherUserId}`)
+    .then((response) => response.json())
+    .then((data) => data)
+
+  socket.emit('joinRoom', num)
 
   sendButton.addEventListener('click', () => {
     const param = {
@@ -36,14 +36,24 @@ window.addEventListener('DOMContentLoaded', async () => {
       img: myUserData.data[0].img,
       msg: chatInput.value,
     }
-    socket.emit('chatting', param)
+    socket.emit('chatting', num, param)
   })
 
   socket.on('chatting', (data) => {
+    console.log('chatting')
     const { id, name, img, msg, time } = data
     const item = new LiModel(id, name, img, msg, time)
     item.makeLi()
   })
+  /*  socket.on('joinRoom', (data) => {
+    console.log('join room')
+  })
+  socket.on('chatting', (data) => {
+    console.log('socket.on')
+    const { id, name, img, msg, time } = data
+    const item = new LiModel(id, name, img, msg, time)
+    item.makeLi()
+  })*/
 
   function LiModel(id, name, img, msg, time) {
     this.id = id

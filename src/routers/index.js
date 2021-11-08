@@ -3,6 +3,7 @@
 const express = require('express')
 const router = express.Router()
 const userController = require('../controller/user.controller')
+const roomController = require('../controller/room.controller')
 router.get('/', (req, res) => {
   res.render('index')
 })
@@ -17,6 +18,15 @@ router.get('/login', (req, res) => {
 
 router.post('/login', userController.login)
 
+router.get('/logout', (req, res) => {
+  req.session.destroy(function (err) {
+    if (err) {
+      console.log('세션 삭제시 에러')
+      return
+    }
+    res.redirect('login')
+  })
+})
 //회원가입
 router.get('/register', (req, res) => {
   res.render('register')
@@ -29,10 +39,9 @@ router.get('/friend', (req, res) => {
 
 //유저정보 얻어오기
 //모든 유저정보 얻어오기
-router.get('/user', userController.allfind)
+router.get('/user', userController.currentConnecting)
 //현재 로그인한 id 얻어오기
 router.get('/user/auth', (req, res) => {
-  console.log(`user/auth 요청옴!! ${req.session.user_id}`)
   return res.status(200).json({
     data: {
       userId: req.session.user_id,
@@ -45,5 +54,7 @@ router.get('/user/:id', userController.onefind)
 router.get('/chat/:id', (req, res) => {
   res.render('chat')
 })
+
+router.get('/room/:id', roomController.createRoom)
 
 module.exports = router

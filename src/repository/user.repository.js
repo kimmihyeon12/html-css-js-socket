@@ -34,9 +34,55 @@ exports.selectOne = (id) => {
     })
   connection.end()
 }
-
 exports.selectAll = () => {
   const query = `select id,img,name,email from users`
+  return new Promise(function (resolve, reject) {
+    connection.query(query, null, function (err, results, fields) {
+      if (err) reject(err)
+      resolve(results)
+    })
+  })
+    .then((data) => {
+      return {
+        success: false,
+        data: data,
+      }
+    })
+    .catch((err) => {
+      return {
+        success: false,
+        data: 'error',
+      }
+    })
+  connection.end()
+}
+exports.selectLoginUser = () => {
+  const query = `select id,img,name,email from users where loginstatus = true;`
+  return new Promise(function (resolve, reject) {
+    connection.query(query, null, function (err, results, fields) {
+      if (err) reject(err)
+      resolve(results)
+    })
+  })
+    .then((data) => {
+      return {
+        success: false,
+        data: data,
+      }
+    })
+    .catch((err) => {
+      return {
+        success: false,
+        data: 'error',
+      }
+    })
+  connection.end()
+}
+
+exports.updateLoginStatus = (id, loginstatus) => {
+  const query = ` update users 
+                  set loginstatus = ${loginstatus}
+                  where id = ${id}`
   return new Promise(function (resolve, reject) {
     connection.query(query, null, function (err, results, fields) {
       if (err) reject(err)
