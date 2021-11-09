@@ -6,7 +6,7 @@ const conn = {
   host: 'localhost',
   port: '3306',
   user: 'root',
-  password: 'admin',
+  password: '1234',
   database: 'chatdb',
 }
 var connection = mysql.createConnection(conn) // DB 커넥션 생성
@@ -141,6 +141,7 @@ exports.selectEmail = (email) => {
 
 exports.selectPw = (email) => {
   const query = `select passwd from users where email='${email}';`
+  console.log(query)
 
   return new Promise(function (resolve, reject) {
     connection.query(query, null, function (err, results, fields) {

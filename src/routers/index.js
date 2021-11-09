@@ -4,6 +4,7 @@ const express = require('express')
 const router = express.Router()
 const userController = require('../controller/user.controller')
 const roomController = require('../controller/room.controller')
+const messageController = require('../controller/message.controller')
 router.get('/', (req, res) => {
   res.render('index')
 })
@@ -55,6 +56,9 @@ router.get('/chat/:id', (req, res) => {
   res.render('chat')
 })
 
-router.get('/room/:id', roomController.createRoom)
-
+//룸 만들기!
+router.post('/room', roomController.createRoom)
+//메세지 만들기!
+router.get('/message/:room_id', messageController.selectMessage)
+router.post('/message', messageController.createMessage)
 module.exports = router

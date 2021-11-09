@@ -1,7 +1,14 @@
-const userRepository = require('../repository/user.repository')
+const messageRepository = require('../repository/message.repository')
 
-exports.createRoom = async (req, res) => {
-  const result = await userRepository.insert()
-  console.log()
+exports.createMessage = async (req, res) => {
+  console.log('createmessage')
+  const { room_id, sender_id, msg } = req.body
+  const result = await messageRepository.insert(room_id, sender_id, msg)
+  // console.log(result)
   // return res.status(200).json(userData)
+}
+exports.selectMessage = async (req, res) => {
+  const room_id = req.params.room_id
+  const result = await messageRepository.select(room_id)
+  return res.status(200).json(result.data)
 }

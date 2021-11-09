@@ -73,6 +73,9 @@ exports.login = async (req, res) => {
         "<script>alert('로그인 완료!');location.href='/friend';</script>",
       )
       return
+    } else {
+      res.send("<script>alert('로그인 실패!');location.href='/login';</script>")
+      return
     }
   }
   res.send("<script>alert('로그인 실패!');location.href='/login';</script>")

@@ -6,7 +6,7 @@ const conn = {
   host: 'localhost',
   port: '3306',
   user: 'root',
-  password: 'admin',
+  password: '1234',
   database: 'chatdb',
 }
 var connection = mysql.createConnection(conn) // DB 커넥션 생성

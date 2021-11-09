@@ -15,27 +15,30 @@ require('dotenv').config()
 const cors = require('cors')
 app.use(cors())
 
-let room = ['room1', 'room2']
-let a = 0
+let roomNumber
 
 io.on('connection', (socket) => {
   console.log('connection')
   socket.on('joinRoom', (num) => {
-    socket.join(room[num])
+    roomNumber = num
     console.log('joinroom')
+    console.log(`roomNumber ${roomNumber}`)
+    socket.join(roomNumber)
   })
   socket.on('chatting', function (num, data) {
     console.log('chatting')
     const { id, name, img, msg } = data
-    console.log(data)
 
-    io.to(room[num]).emit('chatting', {
+    io.to(num).emit('chatting', {
       id,
       name,
       img,
       msg,
       time: moment(new Date()).format('h:mm A'),
     })
+  })
+  socket.on('close', function () {
+    console.log('close event')
   })
 })
 
