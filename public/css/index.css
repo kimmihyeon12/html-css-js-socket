@@ -631,6 +631,9 @@ video {
 .w-\[12vw\] {
 	width: 12vw;
 }
+.w-\[60vw\] {
+	width: 60vw;
+}
 .cursor-pointer {
 	cursor: pointer;
 }

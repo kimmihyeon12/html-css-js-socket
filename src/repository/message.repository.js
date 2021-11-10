@@ -36,8 +36,7 @@ exports.insert = (room_id, sender_id, msg, time) => {
   connection.end()
 }
 exports.select = (room_id) => {
-  const query = `select * from (
-    select u.name, u.img, m.sender_id, m.message_content,  DATE_FORMAT(TIME, "%h:%i %p") AS time  from users u inner join message m on m.sender_id = u.id where room_id =${room_id} order by time desc limit 50) as a order by time asc;`
+  const query = ` select u.name, u.img, m.sender_id, m.message_content,  DATE_FORMAT(TIME, "%h:%i %p") AS time , time as times  from users u inner join message m on m.sender_id = u.id where room_id =${room_id} order by time desc limit 50) as a order by times asc;`
 
   return new Promise(function (resolve, reject) {
     connection.query(query, null, function (err, results, fields) {
