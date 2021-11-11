@@ -66,11 +66,11 @@ exports.login = async (req, res) => {
     //비밀번호 일치하는지 확인
 
     if (vaildPasswd.data[0].passwd === passwd) {
-      res.cookie('id', vaildId.data[0].id)
-      console.log(`id ${req.cookies.id}`)
-      req.session.user_id = vaildId.data[0].id
-      await userRepository.updateLoginStatus(req.session.user_id, true)
-      //console.log(req.session.user_id)
+      await res.cookie('uid', vaildId.data[0].id)
+      req.session.uid = vaildId.data[0].id
+      // console.log(`id ${req.cookies.uid}`)
+      await userRepository.updateLoginStatus(vaildId.data[0].id, true)
+      // await userRepository.updateLoginAccessTime(vaildId.data[0].id)
       res.send(
         "<script>alert('로그인 완료!');location.href='/friend';</script>",
       )
@@ -79,4 +79,11 @@ exports.login = async (req, res) => {
   }
   res.send("<script>alert('로그인 실패!');location.href='/login';</script>")
   return
+}
+exports.logout = async (req, res) => {
+  const userData = await userRepository.updateLoginStatus(
+    req.cookies.uid,
+    false,
+  )
+  res.clearCookie('uid').redirect('/login')
 }

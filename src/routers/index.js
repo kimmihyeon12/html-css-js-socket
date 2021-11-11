@@ -11,24 +11,17 @@ router.get('/', (req, res) => {
 })
 
 //로그인
-router.get('/login', (req, res) => {
-  if (!(req.session.user_id === undefined)) {
+router.get('/login', async (req, res) => {
+  if (req.cookies.uid) {
     res.redirect('friend')
+  } else {
+    res.render('login')
   }
-  res.render('login')
 })
 
 router.post('/login', userController.login)
 
-router.get('/logout', (req, res) => {
-  req.session.destroy(function (err) {
-    if (err) {
-      console.log('세션 삭제시 에러')
-      return
-    }
-    res.redirect('login')
-  })
-})
+router.get('/logout', userController.logout)
 //회원가입
 router.get('/register', (req, res) => {
   res.render('register')
@@ -44,9 +37,11 @@ router.get('/friend', (req, res) => {
 router.get('/user', userController.currentConnecting)
 //현재 로그인한 id 얻어오기
 router.get('/user/auth', (req, res) => {
+  console.log(req.cookies.uid)
   return res.status(200).json({
     data: {
-      userId: req.session.user_id,
+      userId: req.cookies.uid,
+      session: req.session.uid,
     },
   })
 })

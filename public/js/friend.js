@@ -1,26 +1,37 @@
 const friendList = document.querySelector('.friend-list')
-function getLocation() {
-  if (navigator.geolocation) {
-    // GPS를 지원하면
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        alert(position.coords.latitude + ' ' + position.coords.longitude)
-        console.log(position.coords.latitude + ' ' + position.coords.longitude)
-      },
-      function (error) {
-        console.error(error)
-      },
-      {
-        enableHighAccuracy: false,
-        maximumAge: 0,
-        timeout: Infinity,
-      },
-    )
-  } else {
-    alert('GPS를 지원하지 않습니다')
+// const socket = io()
+// console.log(socket)
+document.onkeydown = function (event) {
+  if (
+    event.keyCode == 116 || // F5
+    (event.ctrlKey == true && event.keyCode == 82) // ctrl + r
+  ) {
+    console.log('freind')
   }
 }
-getLocation()
+
+// function getLocation() {
+//   if (navigator.geolocation) {
+//     // GPS를 지원하면
+//     navigator.geolocation.getCurrentPosition(
+//       function (position) {
+//         alert(position.coords.latitude + ' ' + position.coords.longitude)
+//         console.log(position.coords.latitude + ' ' + position.coords.longitude)
+//       },
+//       function (error) {
+//         console.error(error)
+//       },
+//       {
+//         enableHighAccuracy: false,
+//         maximumAge: 0,
+//         timeout: Infinity,
+//       },
+//     )
+//   } else {
+//     alert('GPS를 지원하지 않습니다')
+//   }
+// }
+// getLocation()
 
 window.addEventListener('DOMContentLoaded', async () => {
   //모든 user정보 가져오기
@@ -52,7 +63,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     .then((response) => response.json())
     .then((data) => data)
   console.log(data)
-  const userId = data.data.userId
+  const userId = Number(data.data.userId)
   for (let i = 0; i < userList.length; i++) {
     if (userId === userList[i].id) {
       document.querySelector(`.li${i}`).remove()

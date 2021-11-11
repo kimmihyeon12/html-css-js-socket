@@ -2,6 +2,11 @@
 
 // socket.io 서버에 접속한다
 const socket = io()
+console.log(socket)
+
+window.addEventListener('popstate', function (e) {
+  history.go(e.currentTarget.length)
+})
 
 const chatList = document.querySelector('.chatting-list')
 const chatInput = document.querySelector('.chatting-input')
@@ -17,6 +22,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   const myUserId = await fetch('/user/auth')
     .then((response) => response.json())
     .then((data) => data)
+
   //현재 로그인한 유저정보(이미지, 닉네임) 얻어오기
   const myUserData = await fetch(`/user/${myUserId.data.userId}`)
     .then((response) => response.json())
@@ -39,6 +45,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   const backupMessage = await fetch(`/message/${roomNumber}`)
     .then((response) => response.json())
     .then((data) => data)
+  console.log(backupMessage)
 
   backupMessage.forEach((message) => {
     console.log(message)
@@ -94,11 +101,13 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     this.makeLi = () => {
       const li = document.createElement('li')
-      li.classList.add(myUserId.data.userId === this.id ? 'sent' : 'received')
+      li.classList.add(
+        Number(myUserId.data.userId) === this.id ? 'sent' : 'received',
+      )
       const dom = `
       <span class="profile">
         <span class="user">${
-          myUserId.data.userId === this.id ? '나' : this.name
+          Number(myUserId.data.userId) === this.id ? '나' : this.name
         }</span>
           <img class="image" src=${img} alt="">
         </span>

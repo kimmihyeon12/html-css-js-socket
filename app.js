@@ -10,13 +10,13 @@ const io = socketIO(server)
 const moment = require('moment')
 const pageRouter = require('./src/routers')
 var session = require('express-session')
+const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 require('dotenv').config()
 const cors = require('cors')
 app.use(cors())
 
 let roomNumber
-
 io.on('connection', (socket) => {
   console.log('connection')
   socket.on('joinRoom', (num) => {
@@ -28,7 +28,6 @@ io.on('connection', (socket) => {
   socket.on('chatting', function (num, data) {
     console.log('chatting')
     const { id, name, img, msg } = data
-
     io.to(num).emit('chatting', {
       id,
       name,
@@ -41,14 +40,14 @@ io.on('connection', (socket) => {
     console.log('close event')
   })
 })
-
+app.use(cookieParser())
 app.use(
   session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
     cookie: {
-      maxAge: 1000 * 60 * 60, // 쿠키 유효기간 1시간
+      maxAge: 1000 * 60 * 60, // 유효기간 1시간
     },
   }),
 )

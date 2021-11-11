@@ -104,6 +104,32 @@ exports.updateLoginStatus = (id, loginstatus) => {
   connection.end()
 }
 
+exports.updateLoginAccessTime = (id) => {
+  const query = ` update users 
+                  set access_time = now()
+                  where id = ${id}`
+  console.log(query)
+  return new Promise(function (resolve, reject) {
+    connection.query(query, null, function (err, results, fields) {
+      if (err) reject(err)
+      resolve(results)
+    })
+  })
+    .then((data) => {
+      return {
+        success: false,
+        data: data,
+      }
+    })
+    .catch((err) => {
+      return {
+        success: false,
+        data: 'error',
+      }
+    })
+  connection.end()
+}
+
 exports.selectEmail = (email) => {
   const query = `select * from users where email='${email}';`
   const checkEmail = CheckEmail(email)

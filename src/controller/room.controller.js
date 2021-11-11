@@ -3,7 +3,7 @@ const roomRepository = require('../repository/room.repository')
 //룸 생성하기
 exports.createRoom = async (req, res) => {
   let { id1 } = req.body
-  let id2 = req.session.user_id
+  let id2 = req.cookies.uid
 
   let temp = 0
   if (id1 > id2) {
