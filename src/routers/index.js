@@ -13,6 +13,7 @@ router.get('/', (req, res) => {
 //로그인
 router.get('/login', async (req, res) => {
   if (req.cookies.uid) {
+    await userController.connect
     res.redirect('friend')
   } else {
     res.render('login')
@@ -34,7 +35,7 @@ router.get('/friend', (req, res) => {
 
 //유저정보 얻어오기
 //모든 유저정보 얻어오기
-router.get('/user', userController.currentConnecting)
+router.get('/user', userController.allUser)
 //현재 로그인한 id 얻어오기
 router.get('/user/auth', (req, res) => {
   console.log(req.cookies.uid)
@@ -55,6 +56,8 @@ router.get('/chat/:id', (req, res) => {
 router.get('/chatroom', (req, res) => {
   res.render('chatroom')
 })
+//
+router.get('/loginstatus', userController.disconnect)
 //채팅방 가져오기
 router.get('/mychat', mychatController.showChat)
 //룸 만들기!

@@ -14,11 +14,14 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 require('dotenv').config()
 const cors = require('cors')
+const { query } = require('express')
 app.use(cors())
-
+let users = []
 let roomNumber
 io.on('connection', (socket) => {
+  console.log('-----------------')
   console.log('connection')
+  console.log(socket.id)
   socket.on('joinRoom', (num) => {
     roomNumber = num
     console.log('joinroom')
@@ -36,8 +39,24 @@ io.on('connection', (socket) => {
       time: moment(new Date()).format('h:mm A'),
     })
   })
-  socket.on('close', function () {
-    console.log('close event')
+  socket.on('connectuser', (user) => {
+    for (let i = 0; i < users.length; i++) {
+      if (users[i].id == user) {
+        console.log(`userid ${users[i].id}`)
+        users.remove(i)
+      }
+    }
+    users.push({
+      id: user,
+      socket_id: socket.id,
+    })
+    console.log(users)
+    users.push(user)
+    io.emit(users)
+  })
+  socket.on('disconnect', () => {
+    console.log(socket.id)
+    console.log('소켓종료')
   })
 })
 app.use(cookieParser())

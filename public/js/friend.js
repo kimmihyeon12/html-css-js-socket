@@ -1,14 +1,18 @@
 const friendList = document.querySelector('.friend-list')
-// const socket = io()
-// console.log(socket)
-document.onkeydown = function (event) {
-  if (
-    event.keyCode == 116 || // F5
-    (event.ctrlKey == true && event.keyCode == 82) // ctrl + r
-  ) {
-    console.log('freind')
-  }
-}
+const socket = io()
+// window.onbeforeunload = async () => {
+//   console.log('gg')
+//   if (event.clientY < 0) {
+//     await fetch('/loginstatus')
+//       .then((response) => response.json())
+//       .then((data) => data)
+
+//     event.returnValue =
+//       'You have closed the browser. Do you want to logout from your application?'
+//     setTimeout('myclose=false', 10)
+//     myclose = true
+//   }
+// }
 
 // function getLocation() {
 //   if (navigator.geolocation) {
@@ -63,6 +67,10 @@ window.addEventListener('DOMContentLoaded', async () => {
     .then((response) => response.json())
     .then((data) => data)
   console.log(data)
+  socket.emit('connectuser', data.data.userId)
+  socket.on('connectuser', async (users) => {
+    console.log(users)
+  })
   const userId = Number(data.data.userId)
   for (let i = 0; i < userList.length; i++) {
     if (userId === userList[i].id) {

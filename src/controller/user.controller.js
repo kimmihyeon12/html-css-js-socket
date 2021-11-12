@@ -1,17 +1,17 @@
 const userRepository = require('../repository/user.repository')
 
-exports.allfind = async (req, res) => {
-  const userData = await userRepository.selectAll()
-  return res.status(200).json(userData)
-}
+// exports.allfind = async (req, res) => {
+//   const userData = await userRepository.selectAll()
+//   return res.status(200).json(userData)
+// }
 exports.onefind = async (req, res) => {
   let id = req.params.id
   const userData = await userRepository.selectOne(id)
   //console.log(userData)
   return res.status(200).json(userData)
 }
-exports.currentConnecting = async (req, res) => {
-  const userData = await userRepository.selectLoginUser()
+exports.allUser = async (req, res) => {
+  const userData = await userRepository.selectAll()
   return res.status(200).json(userData)
 }
 
@@ -86,4 +86,15 @@ exports.logout = async (req, res) => {
     false,
   )
   res.clearCookie('uid').redirect('/login')
+}
+exports.disconnect = async (req, res) => {
+  console.log('close')
+  const userData = await userRepository.updateLoginStatus(
+    req.cookies.uid,
+    false,
+  )
+}
+exports.connect = async (req, res) => {
+  console.log('close')
+  const userData = await userRepository.updateLoginStatus(req.cookies.uid, true)
 }
