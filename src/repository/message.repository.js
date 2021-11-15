@@ -1,26 +1,9 @@
 //database
-const mysql = require('mysql') // mysql 모듈 로드
-
-const conn = {
-  // mysql 접속 설정
-  host: 'localhost',
-  port: '3306',
-  user: 'root',
-  password: '1234',
-  database: 'chatdb',
-}
-var connection = mysql.createConnection(conn) // DB 커넥션 생성
-connection.connect()
-
+const {queryBuilder} = require('../config/index')
+ 
 exports.insert = (room_id, sender_id, msg, time) => {
   const query = `insert into message value(null,${room_id},${sender_id},'${msg}',now());`
-  console.log(query)
-  return new Promise(function (resolve, reject) {
-    connection.query(query, null, function (err, results, fields) {
-      if (err) reject(err)
-      resolve(results)
-    })
-  })
+return queryBuilder( query )
     .then((data) => {
       return {
         success: true,
@@ -38,13 +21,7 @@ exports.insert = (room_id, sender_id, msg, time) => {
 exports.select = (room_id) => {
   const query = ` select * from (
     select u.name, u.img, m.sender_id, m.message_content,  DATE_FORMAT(TIME, "%h:%i %p") AS time , time as times  from users u inner join message m on m.sender_id = u.id where room_id =${room_id} order by time desc limit 50) as a order by times asc;`
-  console.log(query)
-  return new Promise(function (resolve, reject) {
-    connection.query(query, null, function (err, results, fields) {
-      if (err) reject(err)
-      resolve(results)
-    })
-  })
+  return queryBuilder( query )
     .then((data) => {
       return {
         success: true,

@@ -1,19 +1,9 @@
+ 
 const friendList = document.querySelector('.friend-list')
 const socket = io()
-// window.onbeforeunload = async () => {
-//   console.log('gg')
-//   if (event.clientY < 0) {
-//     await fetch('/loginstatus')
-//       .then((response) => response.json())
-//       .then((data) => data)
+console.log('friend render')
 
-//     event.returnValue =
-//       'You have closed the browser. Do you want to logout from your application?'
-//     setTimeout('myclose=false', 10)
-//     myclose = true
-//   }
-// }
-
+ 
 // function getLocation() {
 //   if (navigator.geolocation) {
 //     // GPS를 지원하면
@@ -36,13 +26,41 @@ const socket = io()
 //   }
 // }
 // getLocation()
-
+let connectUsers = [];
 window.addEventListener('DOMContentLoaded', async () => {
+  socket.on('connectuser', async (users) => {
+    console.log("connect")
+ 
+    users.forEach(user => {
+      console.log(user)
+      document.querySelector(`.user-id${user.id}`).style.backgroundColor="green"
+    });
+  
+     
+  })
+  socket.on('disconnectuser', async (user) => {
+    console.log("disconnect")
+ 
+   
+      document.querySelector(`.user-id${user.id}`).style.backgroundColor="#c7c7c7"
+  
+  
+     
+  })
+
   //모든 user정보 가져오기
   const userList = await fetch('/user')
     .then((response) => response.json())
     .then((data) => data.data)
-  console.log(userList)
+    console.log(userList)
+  // for(let i=0; i<userList.length; i++){
+  //   if(userList[i].id==Number(connectUsers[i].id)){
+  //     let tmp = userList[i];
+  //     fruits.splice(i, 1);
+  //     fruits.unshift(tmp);
+  //   }
+  // }
+  // console.log(userList)
 
   for (let i = 0; i < userList.length; i++) {
     const li = document.createElement('li')
@@ -53,7 +71,8 @@ window.addEventListener('DOMContentLoaded', async () => {
         ? 'https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-176213403491/media/magazine_img/magazine_280/5-3-%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg'
         : userList[i].img
     } alt="">
-    <p class="user-name${i} text-[2.8vw] w-[70vw] ">${userList[i].name}</p>
+    <p class="user-id${userList[i].id} w-[3vw] h-[3vw] bg-gray-200 rounded-[3vw]" >  </p>
+    <p class="user-name${i} text-[2.8vw] w-[70vw] ml-[2vw] ">${userList[i].name}</p>
     <p class="user-chat${i} text-[2.8vw]   cursor-pointer">채팅하기</p>`
     friendList.appendChild(li)
     document.querySelector(`.user-chat${i}`).addEventListener('click', (e) => {
@@ -66,11 +85,9 @@ window.addEventListener('DOMContentLoaded', async () => {
   const data = await fetch('/user/auth')
     .then((response) => response.json())
     .then((data) => data)
-  console.log(data)
+ 
   socket.emit('connectuser', data.data.userId)
-  socket.on('connectuser', async (users) => {
-    console.log(users)
-  })
+ 
   const userId = Number(data.data.userId)
   for (let i = 0; i < userList.length; i++) {
     if (userId === userList[i].id) {
@@ -83,7 +100,9 @@ window.addEventListener('DOMContentLoaded', async () => {
             ? 'https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-176213403491/media/magazine_img/magazine_280/5-3-%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg'
             : userList[i].img
         } alt="">
-        <p class="user-name${i} text-[2.8vw] ">나</p>`
+        <p class="user-id${userList[i].id} w-[3vw] h-[3vw] bg-gray-200 rounded-[3vw]" >  </p>
+        <p class="user-name${i} text-[2.8vw] ml-[2vw]">나</p>`
+        
       friendList.prepend(li)
     }
   }

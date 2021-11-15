@@ -1,25 +1,10 @@
 //database
-const mysql = require('mysql') // mysql 모듈 로드
 
-const conn = {
-  // mysql 접속 설정
-  host: 'localhost',
-  port: '3306',
-  user: 'root',
-  password: '1234',
-  database: 'chatdb',
-}
-var connection = mysql.createConnection(conn) // DB 커넥션 생성
-connection.connect()
-
+const {queryBuilder} = require('../config/index')
+ 
 exports.selectOne = (id) => {
   const query = `select id,img,name,email from users where id = ${id};`
-  return new Promise(function (resolve, reject) {
-    connection.query(query, null, function (err, results, fields) {
-      if (err) reject(err)
-      resolve(results)
-    })
-  })
+ return queryBuilder( query )
     .then((data) => {
       return {
         success: false,
@@ -36,12 +21,7 @@ exports.selectOne = (id) => {
 }
 exports.selectAll = () => {
   const query = `select id,img,name,email from users`
-  return new Promise(function (resolve, reject) {
-    connection.query(query, null, function (err, results, fields) {
-      if (err) reject(err)
-      resolve(results)
-    })
-  })
+ return queryBuilder( query )
     .then((data) => {
       return {
         success: false,
@@ -58,12 +38,7 @@ exports.selectAll = () => {
 }
 exports.selectLoginUser = () => {
   const query = `select id,img,name,email from users where loginstatus = true;`
-  return new Promise(function (resolve, reject) {
-    connection.query(query, null, function (err, results, fields) {
-      if (err) reject(err)
-      resolve(results)
-    })
-  })
+ return queryBuilder( query )
     .then((data) => {
       return {
         success: false,
@@ -83,12 +58,7 @@ exports.updateLoginStatus = (id, loginstatus) => {
   const query = ` update users 
                   set loginstatus = ${loginstatus}
                   where id = ${id}`
-  return new Promise(function (resolve, reject) {
-    connection.query(query, null, function (err, results, fields) {
-      if (err) reject(err)
-      resolve(results)
-    })
-  })
+   return queryBuilder( query )
     .then((data) => {
       return {
         success: false,
@@ -109,12 +79,7 @@ exports.updateLoginAccessTime = (id) => {
                   set access_time = now()
                   where id = ${id}`
   console.log(query)
-  return new Promise(function (resolve, reject) {
-    connection.query(query, null, function (err, results, fields) {
-      if (err) reject(err)
-      resolve(results)
-    })
-  })
+ return queryBuilder( query )
     .then((data) => {
       return {
         success: false,
@@ -138,12 +103,7 @@ exports.selectEmail = (email) => {
       success: false,
       message: '이메일 형식을 확인해주세요',
     }
-  return new Promise(function (resolve, reject) {
-    connection.query(query, null, function (err, results, fields) {
-      if (err) reject(err)
-      resolve(results)
-    })
-  })
+   return queryBuilder( query )
     .then((data) => {
       if (data.length != 0)
         return {
@@ -169,12 +129,7 @@ exports.selectPw = (email) => {
   const query = `select passwd from users where email='${email}';`
   console.log(query)
 
-  return new Promise(function (resolve, reject) {
-    connection.query(query, null, function (err, results, fields) {
-      if (err) reject(err)
-      resolve(results)
-    })
-  })
+ return queryBuilder( query )
     .then((data) => {
       return {
         data: data,
@@ -193,12 +148,7 @@ exports.selectPw = (email) => {
 exports.selectId = (email) => {
   const query = `select id from users where email='${email}';`
 
-  return new Promise(function (resolve, reject) {
-    connection.query(query, null, function (err, results, fields) {
-      if (err) reject(err)
-      resolve(results)
-    })
-  })
+ return queryBuilder( query )
     .then((data) => {
       return {
         data: data,
@@ -215,14 +165,9 @@ exports.selectId = (email) => {
 }
 
 exports.insert = (name, email, passwd) => {
-  const query = `insert into users values(null,null,'${name}','${email}','${passwd}');`
-
-  return new Promise(function (resolve, reject) {
-    connection.query(query, null, function (err, results, fields) {
-      if (err) reject(err)
-      resolve(results)
-    })
-  })
+  const query = `insert into users values(null,null,'${name}','${email}','${passwd}','1');`
+  console.log(query)
+ return queryBuilder( query )
     .then((data) => {
       return {
         success: true,

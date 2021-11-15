@@ -14,14 +14,16 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 require('dotenv').config()
 const cors = require('cors')
-const { query } = require('express')
+
+const database = require("./src/config/index"); 
+database.connector();
 app.use(cors())
 let users = []
 let roomNumber
 io.on('connection', (socket) => {
   console.log('-----------------')
-  console.log('connection')
-  console.log(socket.id)
+  console.log('소켓 연결')
+  // console.log(socket.id)
   socket.on('joinRoom', (num) => {
     roomNumber = num
     console.log('joinroom')
@@ -42,8 +44,8 @@ io.on('connection', (socket) => {
   socket.on('connectuser', (user) => {
     for (let i = 0; i < users.length; i++) {
       if (users[i].id == user) {
-        console.log(`userid ${users[i].id}`)
-        users.remove(i)
+        users.splice(i,1)
+        
       }
     }
     users.push({
@@ -51,11 +53,18 @@ io.on('connection', (socket) => {
       socket_id: socket.id,
     })
     console.log(users)
-    users.push(user)
-    io.emit(users)
+    io.emit('connectuser',users)
   })
   socket.on('disconnect', () => {
-    console.log(socket.id)
+    let disconnectUser;
+    for (let i = 0; i < users.length; i++) {
+      if (users[i].socket_id == socket.id) {
+        console.log(users[i])
+        disconnectUser=users[i]
+        users.splice(i,1)
+      }
+    }
+    io.emit('disconnectuser',disconnectUser)
     console.log('소켓종료')
   })
 })
@@ -85,3 +94,5 @@ app.use(
 const PORT = process.env.PORT || 5000
 app.use(pageRouter)
 server.listen(PORT, () => console.log(`server is running ${PORT}`))
+ 
+ 

@@ -12,12 +12,18 @@ router.get('/', (req, res) => {
 
 //로그인
 router.get('/login', async (req, res) => {
+  console.log('login')
+  try{
+  console.log(req.cookies.uid)
   if (req.cookies.uid) {
     await userController.connect
     res.redirect('friend')
   } else {
     res.render('login')
   }
+}catch(e){
+  res.render('login')
+}
 })
 
 router.post('/login', userController.login)
