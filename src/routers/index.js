@@ -6,6 +6,11 @@ const userController = require('../controller/user.controller')
 const roomController = require('../controller/room.controller')
 const messageController = require('../controller/message.controller')
 const mychatController = require('../controller/mychat.controller')
+
+router.get('/navbar', (req, res) => {
+  res.render('navbar')
+})
+
 router.get('/', (req, res) => {
   res.render('index')
 })
@@ -13,17 +18,17 @@ router.get('/', (req, res) => {
 //로그인
 router.get('/login', async (req, res) => {
   console.log('login')
-  try{
-  console.log(req.cookies.uid)
-  if (req.cookies.uid) {
-    await userController.connect
-    res.redirect('friend')
-  } else {
+  try {
+    console.log(req.cookies.uid)
+    if (req.cookies.uid) {
+      await userController.connect
+      res.redirect('friend')
+    } else {
+      res.render('login')
+    }
+  } catch (e) {
     res.render('login')
   }
-}catch(e){
-  res.render('login')
-}
 })
 
 router.post('/login', userController.login)
