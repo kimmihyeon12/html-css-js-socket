@@ -2,3 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 @layer base { }
+
+@font-face {
+    font-family:"NeoB";
+    src:url("./../asset/font/appleSDGothicNeoB.ttf");
+} 
+@font-face {
+    font-family:"NeoEB";
+    src:url("./../asset/font/appleSDGothicNeoEB.ttf");
+} 
+@font-face {
+    font-family:"NeoH";
+    src:url("./../asset/font/appleSDGothicNeoH.ttf");
+} 
+@font-face {
+    font-family:"NeoL";
+    src:url("./../asset/font/appleSDGothicNeoL.ttf");
+} 
+@font-face {
+    font-family:"NeoM";
+    src:url("./../asset/font/appleSDGothicNeoM.ttf");
+} 
+@font-face {
+    font-family:"NeoR";
+    src:url("./../asset/font/appleSDGothicNeoR.ttf");
+} 
+@font-face {
+    font-family:"NeoSB";
+    src:url("./../asset/font/appleSDGothicNeoSB.ttf");
+} 
+@font-face {
+    font-family:"NeoT";
+    src:url("./../asset/font/appleSDGothicNeoT.ttf");
+} 
+@font-face {
+    font-family:"NeoUL";
+    src:url("./../asset/font/appleSDGothicNeoUL.ttf");
+} 
