@@ -14,7 +14,13 @@ router.get('/navbar', (req, res) => {
 router.get('/', (req, res) => {
   res.render('index')
 })
+router.get('/oneToOneChat', (req, res) => {
+  res.render('oneToOneChat')
+})
 
+router.get('/notice', (req, res) => {
+  res.render('notice')
+})
 //로그인
 router.get('/login', async (req, res) => {
   console.log('login')
