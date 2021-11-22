@@ -17,7 +17,9 @@ router.get('/', (req, res) => {
 router.get('/oneToOneChat', (req, res) => {
   res.render('oneToOneChat')
 })
-
+router.get('/multiChat', (req, res) => {
+  res.render('multiChat')
+})
 router.get('/notice', (req, res) => {
   res.render('notice')
 })

@@ -20,7 +20,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     }</p>
     <p class="user-name${i} text-[2.8vw]   ">${chatUser[i].time}</p>`
 
-    friendList.appendChild(li)
+    chatList.appendChild(li)
     document.querySelector(`.user-chat${i}`).addEventListener('click', (e) => {
       const id = chatUser[i].id
       location.href = `/chat/${id}`

@@ -4,10 +4,6 @@
 const socket = io()
 console.log(socket)
 
-window.addEventListener('popstate', function (e) {
-  history.go(e.currentTarget.length)
-})
-
 const chatList = document.querySelector('.chatting-list')
 const chatInput = document.querySelector('.chatting-input')
 const sendButton = document.querySelector('.send-button')

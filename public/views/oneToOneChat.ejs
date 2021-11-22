@@ -5,192 +5,38 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/costom.css">
 </head>
 <body>
   <div class="flex w-[100vw] h-[100vh]  p-1 bg-gray-50 ">
   <%-include('navbar')%>
   <div class="p-3 ml-2 bg-gray-100 rounded-lg shadow-md w-[208px] min-w-[208px] border">
     <p class="text-2xl border-b font-neoeb">개인톡</p>
-    <p class="pt-1 mb-1 text-sm text-gray-400 font-neosb">모든참가자</p>
-    <div class="flex items-center mb-2 bg-purple-100 rounded-lg">
-      <div class="relative mr-1">
-        <img src="asset/user0.png" class="w-7 bg-purple-300 pl-[5px] pr-[5px] pt-[6px] pb-[6px] rounded-3xl">
-        <div
-          class="flex absolute top-[18px] left-[18px] items-center justify-center w-[12px] h-[12px] bg-white rounded-3xl">
-          <div class=" w-[8px] h-[8px] bg-green-500 rounded-3xl"></div>
-        </div>
-      </div>
-      <p class="text-sm text-purple-800 font-neom">고재범</p>
-      <p class="pl-2 pr-2 ml-1 text-xs bg-gray-100 rounded-lg font-neob">me</p>
-    </div>
-
-    <div class="flex items-center mb-2">
-      <div class="relative mr-1">
-        <img src="asset/user1.png" class="  w-7 bg-purple-300 pl-[5px] pr-[5px] pt-[6px] pb-[6px] rounded-3xl">
-        <div
-          class="flex absolute top-[18px] left-[18px] items-center justify-center w-[12px] h-[12px] bg-white rounded-3xl">
-          <div class=" w-[8px] h-[8px] bg-green-500 rounded-3xl"></div>
-        </div>
-      </div>
-      <p class="text-sm font-neom">고재범</p>
-
-    </div>
-    <div class="flex items-center mb-2">
-      <div class="relative mr-1">
-        <img src="asset/user2.png" class="  w-7 bg-purple-300 pl-[5px] pr-[5px] pt-[6px] pb-[6px] rounded-3xl">
-        <div
-          class="flex absolute top-[18px] left-[18px] items-center justify-center w-[12px] h-[12px] bg-white rounded-3xl">
-          <div class=" w-[8px] h-[8px] bg-green-500 rounded-3xl"></div>
-        </div>
-      </div>
-      <p class="text-sm font-neom">고재범</p>
-
-    </div>
-    <div class="flex items-center mb-2">
-      <div class="relative mr-1">
-        <img src="asset/user3.png" class="  w-7 bg-purple-300 pl-[5px] pr-[5px] pt-[6px] pb-[6px] rounded-3xl">
-        <div
-          class="flex absolute top-[18px] left-[18px] items-center justify-center w-[12px] h-[12px] bg-white rounded-3xl">
-          <div class=" w-[8px] h-[8px] bg-green-500 rounded-3xl"></div>
-        </div>
-      </div>
-      <p class="text-sm font-neom">고재범</p>
-
-    </div>
-    <div class="flex items-center mb-2">
-      <div class="relative mr-1">
-        <img src="asset/user4.png" class="  w-7 bg-purple-300 pl-[5px] pr-[5px] pt-[6px] pb-[6px] rounded-3xl">
-        <div
-          class="flex absolute top-[18px] left-[18px] items-center justify-center w-[12px] h-[12px] bg-white rounded-3xl">
-          <div class=" w-[8px] h-[8px] bg-green-500 rounded-3xl"></div>
-        </div>
-      </div>
-      <p class="text-sm font-neom">고재범</p>
-
-    </div>
+    <p class="pt-1 mb-2 text-sm text-gray-400 font-neosb">모든사용자</p>
+    <ul class='user-list'></ul>
+   
   </div>
-  <div class="p-2 ml-2 border rounded-lg shadow-md w-80">
+  <div class="p-2 ml-2 border rounded-lg shadow-md w-80 min-w-[330px]">
     <p class="mt-1 ml-1 text-xl font-neoeb">전체</p>
-    <div class="flex pt-1 pb-1 bg-gray-100 rounded-md">
-      <div class="flex items-center pl-1">
-        <img src="asset/user4.png" class=" w-[48px] bg-purple-300 pl-[5px] pr-[5px] pt-[6px] pb-[6px] rounded-[18px]">
-        <div class="ml-3">
-          <div class="flex items-center">
-            <p class="text-[15px] font-neom">김미현</p>
-            <p class="text-[12px] font-neom ml-40 text-gray-500">1분전</p>
-          </div>
-          <p class="text-[15px] font-neom text-gray-500">네 수고하세요!!! </p>
-        </div>
-      </div>
-    </div>
-    <div class="flex pt-1 pb-1 rounded-md">
-      <div class="flex items-center pl-1">
-        <img src="asset/user4.png" class=" w-[48px] bg-purple-300 pl-[5px] pr-[5px] pt-[6px] pb-[6px] rounded-[18px]">
-        <div class="ml-3">
-          <div class="flex items-center">
-            <p class="text-[15px] font-neom">김미현</p>
-            <p class="text-[12px] font-neom ml-40 text-gray-500">1분전</p>
-          </div>
-          <p class="text-[15px] font-neom text-gray-500">네 수고하세요!!! </p>
-        </div>
-      </div>
-    </div>
-    <div class="flex pt-1 pb-1 rounded-md">
-      <div class="flex items-center pl-1">
-        <img src="asset/user4.png" class=" w-[48px] bg-purple-300 pl-[5px] pr-[5px] pt-[6px] pb-[6px] rounded-[18px]">
-        <div class="ml-3">
-          <div class="flex items-center">
-            <p class="text-[15px] font-neom">김미현</p>
-            <p class="text-[12px] font-neom ml-40 text-gray-500">1분전</p>
-          </div>
-          <p class="text-[15px] font-neom text-gray-500">네 수고하세요!!! </p>
-        </div>
-      </div>
-    </div>
-    <div class="flex pt-1 pb-1 rounded-md">
-      <div class="flex items-center pl-1">
-        <img src="asset/user4.png" class=" w-[48px] bg-purple-300 pl-[5px] pr-[5px] pt-[6px] pb-[6px] rounded-[18px]">
-        <div class="ml-3">
-          <div class="flex items-center">
-            <p class="text-[15px] font-neom">김미현</p>
-            <p class="text-[12px] font-neom ml-40 text-gray-500">1분전</p>
-          </div>
-          <p class="text-[15px] font-neom text-gray-500">네 수고하세요!!! </p>
-        </div>
-      </div>
-    </div>
-    <div class="flex pt-1 pb-1 rounded-md">
-      <div class="flex items-center pl-1">
-        <img src="asset/user4.png" class=" w-[48px] bg-purple-300 pl-[5px] pr-[5px] pt-[6px] pb-[6px] rounded-[18px]">
-        <div class="ml-3">
-          <div class="flex items-center">
-            <p class="text-[15px] font-neom">김미현</p>
-            <p class="text-[12px] font-neom ml-40 text-gray-500">1분전</p>
-          </div>
-          <p class="text-[15px] font-neom text-gray-500">네 수고하세요!!! </p>
-        </div>
-      </div>
-    </div>
-    <div class="flex pt-1 pb-1 rounded-md">
-      <div class="flex items-center pl-1">
-        <img src="asset/user4.png" class=" w-[48px] bg-purple-300 pl-[5px] pr-[5px] pt-[6px] pb-[6px] rounded-[18px]">
-        <div class="ml-3">
-          <div class="flex items-center">
-            <p class="text-[15px] font-neom">김미현</p>
-            <p class="text-[12px] font-neom ml-40 text-gray-500">1분전</p>
-          </div>
-          <p class="text-[15px] font-neom text-gray-500">네 수고하세요!!! </p>
-        </div>
-      </div>
-    </div>
-    <div class="flex pt-1 pb-1 rounded-md">
-      <div class="flex items-center pl-1">
-        <img src="asset/user4.png" class=" w-[48px] bg-purple-300 pl-[5px] pr-[5px] pt-[6px] pb-[6px] rounded-[18px]">
-        <div class="ml-3">
-          <div class="flex items-center">
-            <p class="text-[15px] font-neom">김미현</p>
-            <p class="text-[12px] font-neom ml-40 text-gray-500">1분전</p>
-          </div>
-          <p class="text-[15px] font-neom text-gray-500">네 수고하세요!!! </p>
-        </div>
-      </div>
-    </div>
+    <div class="user-chat-list"></div>
   </div>
-  <div class="w-[1000px] p-2 ml-2 border rounded-lg shadow-md">
+  <div class="w-[960px] min-w-[961px] p-2 ml-2 border rounded-lg shadow-md bg-white">
     <p class="mt-1 ml-1 text-xl font-neoeb">채팅방</p>
-    <div class="flex flex-col pt-1 pb-1 rounded-md">
-      <div class="flex flex-col pl-1">
-        <div class="flex items-center"><img src="asset/user4.png"
-            class=" w-[20px] bg-purple-300 pl-[5px] pr-[5px] pt-[6px] pb-[6px] rounded-[18px]">
-          <p class="ml-1 text-[12px] font-neob">김미현</p>
-        </div>
-        <div class="flex items-end">
-          <div class="max-w-[200px] p-2 mt-1 text-sm rounded-lg bg-gray-50 font-neom">안녕하세요 만나서반가워요 다음에또만나요~~</div>
-          <p class="ml-1 text-[10px] font-neor">2:20AM</p>
-        </div>
-      </div>
-      <div class="flex flex-row-reverse items-end pt-3">
-        <div class="max-w-[200px] flex justify-end p-2 mt-1 text-sm rounded-lg bg-purple-100 font-neom ">안녕하세요 저도 반가워요 
-        
-        </div>
-        <p class="ml-1 text-[10px] font-neor mr-1">2:20AM</p>
-      </div>
-      <div class="flex flex-row-reverse items-end pt-3">
-        <div class="max-w-[200px] flex justify-end p-2 mt-1 text-sm rounded-lg bg-purple-100 font-neom ">안녕하세요 저도 반가워요 
-        
-        </div>
-        <p class="ml-1 text-[10px] font-neor mr-1">2:20AM</p>
-      </div>
-      <div class="flex flex-row-reverse items-end pt-3">
-        <div class="max-w-[200px] flex justify-end p-2 mt-1 text-sm rounded-lg bg-purple-100 font-neom ">안녕하세요 저도 반가워요 
-        
-        </div>
-        <p class="ml-1 text-[10px] font-neor mr-1">2:20AM</p>
-      </div>
+    <div class="mb-2 overflow-x-hidden overflow-y-scroll display-container custom-scroll">
+      <img src="asset/3.png" alt="" class="fixed w-[900px] mt-36 ml-10">
+      <div class="chat-list  relative flex flex-col pt-1 pb-1  rounded-md h-[790px]   "></div>
     </div>
+     <div class="flex ">
+      <input type="text" class="chatting-input w-[850px] h-[80px] rounded-md border ">
+      <div type="text" class="send-button w-[100px] h-[80px] rounded-md text-center bg-purple-300 ml-2"><p class="text-white mt-7 font-neob">전송</p></div>
+    </div>
+   
   </div>
-  <div class="p-2 ml-2 border rounded-lg shadow-md w-80"></div>
+
 </div>
 </div>
+<script src="/socket.io/socket.io.js"></script>
+<script type="module" src="/js/oneToOneChat.js"></script>
 </body>
 </html>
