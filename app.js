@@ -15,8 +15,8 @@ const bodyParser = require('body-parser')
 require('dotenv').config()
 const cors = require('cors')
 
-const database = require("./src/config/index"); 
-database.connector();
+const database = require('./src/config/index')
+database.connector()
 app.use(cors())
 let users = []
 let roomNumber
@@ -31,7 +31,7 @@ io.on('connection', (socket) => {
     socket.join(roomNumber)
   })
   socket.on('chatting', function (num, data) {
-    console.log('chatting')
+    console.log(`chatting ${data.msg}`)
     const { id, name, img, msg } = data
     io.to(num).emit('chatting', {
       id,
@@ -44,8 +44,7 @@ io.on('connection', (socket) => {
   socket.on('connectuser', (user) => {
     for (let i = 0; i < users.length; i++) {
       if (users[i].id == user) {
-        users.splice(i,1)
-        
+        users.splice(i, 1)
       }
     }
     users.push({
@@ -53,18 +52,18 @@ io.on('connection', (socket) => {
       socket_id: socket.id,
     })
     console.log(users)
-    io.emit('connectuser',users)
+    io.emit('connectuser', users)
   })
   socket.on('disconnect', () => {
-    let disconnectUser;
+    let disconnectUser
     for (let i = 0; i < users.length; i++) {
       if (users[i].socket_id == socket.id) {
         console.log(users[i])
-        disconnectUser=users[i]
-        users.splice(i,1)
+        disconnectUser = users[i]
+        users.splice(i, 1)
       }
     }
-    io.emit('disconnectuser',disconnectUser)
+    io.emit('disconnectuser', disconnectUser)
     console.log('소켓종료')
   })
 })
@@ -94,5 +93,3 @@ app.use(
 const PORT = process.env.PORT || 5000
 app.use(pageRouter)
 server.listen(PORT, () => console.log(`server is running ${PORT}`))
- 
- 

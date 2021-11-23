@@ -3,8 +3,10 @@ const friendList = document.querySelector('.user-list')
 const userChatList = document.querySelector('.user-chat-list')
 const chatList = document.querySelector('.chat-list')
 const displayContainer = document.querySelector('.display-container')
-const chatInput = document.querySelector('.chatting-input')
-const sendButton = document.querySelector('.send-button')
+let chatInput
+let sendButton
+const chatEl = document.querySelector('.chat')
+const chatTitle = document.querySelector('.chat-title')
 let myUserData
 let connectUsers = []
 
@@ -23,6 +25,16 @@ window.addEventListener('DOMContentLoaded', async () => {
       '#c7c7c7'
   })
 
+  socket.on('chatting', async (data) => {
+    console.log(`chatting ${data.msg}`)
+    const { id, name, img, msg, time } = data
+    const item = new LiModel(id, name, img, msg, time)
+    item.makeLi()
+    displayContainer.scrollTop = displayContainer.scrollHeight
+    console.log('chatinput')
+    chatInput.value = ''
+  })
+
   //모든 user정보 가져오기
   const userList = await fetch('/user')
     .then((response) => response.json())
@@ -31,7 +43,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   for (let i = 0; i < userList.length; i++) {
     const li = document.createElement('li')
-    li.className = `li${i} flex items-center mb-2`
+    li.className = `li${i} flex items-center mb-2 cursor-pointer`
     li.innerHTML = `
     <div class="relative mr-1">
       <img src=${
@@ -51,6 +63,9 @@ window.addEventListener('DOMContentLoaded', async () => {
     }</p>
     </div>`
     friendList.appendChild(li)
+    document.querySelector(`.li${i}`).addEventListener('click', () => {
+      getChat(userList[i].id, userList[i].name)
+    })
     // document.querySelector(`.user-chat${i}`).addEventListener('click', (e) => {
     //   const id = userList[i].id
     //   location.href = `/chat/${id}`
@@ -131,103 +146,109 @@ window.addEventListener('DOMContentLoaded', async () => {
             document.querySelector(`.user-chat${j}`).style.backgroundColor = ``
           }
         }
-
-        chatList.innerHTML = ''
-        const otherUserId = chatUser[i].id
-        const roomNumber = await fetch(`/room`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            id1: otherUserId,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => data.room_id)
-        const backupMessage = await fetch(`/message/${roomNumber}`)
-          .then((response) => response.json())
-          .then((data) => data)
-        backupMessage.forEach((message) => {
-          // console.log(message)
-          const item = new LiModel(
-            message.sender_id,
-            message.name,
-            message.img,
-            message.message_content,
-            message.time,
-          )
-          item.makeLi()
-        })
-        displayContainer.scrollTop = displayContainer.scrollHeight
-
-        socket.emit('joinRoom', roomNumber)
-
-        sendButton.addEventListener('click', async () => {
-          console.log(`send!!`)
-          const param = {
-            id: myUserData.id,
-            name: myUserData.name,
-            img: myUserData.img,
-            msg: chatInput.value,
-          }
-          socket.emit('chatting', roomNumber, param)
-          await fetch(`/message`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              room_id: roomNumber,
-              sender_id: myUserData.id,
-              msg: chatInput.value,
-            }),
-          })
-          chatInput.value = false
-        })
-
-        socket.on('chatting', async (data) => {
-          console.log('chatting')
-          const { id, name, img, msg, time } = data
-          const item = new LiModel(id, name, img, msg, time)
-          item.makeLi()
-          displayContainer.scrollTop = displayContainer.scrollHeight
-        })
-
-        function LiModel(id, name, img, msg, time) {
-          this.id = id
-          this.name = name
-          this.msg = msg
-          this.time = time
-          this.img = img
-
-          this.makeLi = () => {
-            const li = document.createElement('div')
-            let dom
-            if (!(Number(myUserData.id) === this.id)) {
-              dom = `
-              <div class="flex flex-col pl-1">
-              <div class="flex items-center"><img src="asset/user4.png"
-                  class=" w-[20px] bg-purple-300 pl-[5px] pr-[5px] pt-[6px] pb-[6px] rounded-[18px]">
-                <p class="ml-1 text-[12px] font-neob">${this.name}</p>
-              </div>
-              <div class="flex items-end">
-                <div class="max-w-[380px]   p-2 mt-1 text-sm rounded-lg bg-gray-50 font-neom">${this.msg}</div>
-                <p class="ml-1 text-[10px] font-neor">2:20AM</p>
-              </div>
-            </div>`
-            } else {
-              dom = `
-              <div class="flex flex-row-reverse items-end pt-3">
-              <div class="max-w-[380px]   p-2 mt-1 text-sm rounded-lg bg-purple-100 font-neom">${this.msg}</div>
-              <p class="ml-1 text-[10px] font-neor mr-1">2:20AM</p>
-            </div>
-              `
-            }
-            li.innerHTML = dom
-            chatList.appendChild(li)
-          }
-        }
+        getChat(chatUser[i].id, chatUser[i].name)
       })
+  }
+  async function getChat(id, name) {
+    chatTitle.innerHTML = `${name}님과 채팅방`
+    while (chatEl.hasChildNodes()) {
+      // 부모노드가 자식이 있는지 여부를 알아낸다
+      chatEl.removeChild(chatEl.firstChild)
+    }
+    chatList.innerHTML = ``
+    const div = document.createElement('div')
+    const dom = `
+    <div class="flex">
+      <input type="text" value="" class="chatting-input w-[830px] h-[80px] rounded-md border ">
+      <button type="text" class="send-button w-[100px] h-[80px] rounded-md text-center bg-purple-300 ml-2 text-white  font-neob"> 전송 </button>
+    `
+    div.innerHTML = dom
+    chatEl.appendChild(div)
+    chatInput = document.querySelector('.chatting-input')
+    sendButton = document.querySelector('.send-button')
+    const otherUserId = id
+    const roomNumber = await fetch(`/room`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id1: otherUserId,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => data.room_id)
+    const backupMessage = await fetch(`/message/${roomNumber}`)
+      .then((response) => response.json())
+      .then((data) => data)
+    backupMessage.forEach((message) => {
+      const item = new LiModel(
+        message.sender_id,
+        message.name,
+        message.img,
+        message.message_content,
+        message.time,
+      )
+      item.makeLi()
+    })
+    displayContainer.scrollTop = displayContainer.scrollHeight
+
+    socket.emit('joinRoom', roomNumber)
+
+    sendButton.addEventListener('click', async () => {
+      const param = {
+        id: myUserData.id,
+        name: myUserData.name,
+        img: myUserData.img,
+        msg: chatInput.value,
+      }
+
+      socket.emit('chatting', roomNumber, param)
+      await fetch(`/message`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          room_id: roomNumber,
+          sender_id: myUserData.id,
+          msg: chatInput.value,
+        }),
+      })
+    })
+  }
+  function LiModel(id, name, img, msg, time) {
+    this.id = id
+    this.name = name
+    this.msg = msg
+    this.time = time
+    this.img = img
+
+    this.makeLi = () => {
+      const li = document.createElement('div')
+      let dom
+      if (!(Number(myUserData.id) === this.id)) {
+        dom = `
+          <div class="flex flex-col pl-1">
+          <div class="flex items-center"><img src="asset/user4.png"
+              class=" w-[20px] bg-purple-300 pl-[5px] pr-[5px] pt-[6px] pb-[6px] rounded-[18px]">
+            <p class="ml-1 text-[12px] font-neob">${this.name}</p>
+          </div>
+          <div class="flex items-end">
+            <div class="max-w-[380px]   p-2 mt-1 text-sm rounded-lg bg-gray-50 font-neom">${this.msg}</div>
+            <p class="ml-1 text-[10px] font-neor">2:20AM</p>
+          </div>
+        </div>`
+      } else {
+        dom = `
+          <div class="flex flex-row-reverse items-end pt-3">
+          <div class="max-w-[380px]   p-2 mt-1 text-sm rounded-lg bg-purple-100 font-neom">${this.msg}</div>
+          <p class="ml-1 text-[10px] font-neor mr-1">${this.time}</p>
+        </div>
+          `
+      }
+      li.innerHTML = dom
+      chatList.appendChild(li)
+    }
   }
 })

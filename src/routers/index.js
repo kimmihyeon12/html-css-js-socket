@@ -30,7 +30,7 @@ router.get('/login', async (req, res) => {
     console.log(req.cookies.uid)
     if (req.cookies.uid) {
       await userController.connect
-      res.redirect('friend')
+      res.redirect('notice')
     } else {
       res.render('login')
     }
