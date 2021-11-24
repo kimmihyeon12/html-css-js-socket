@@ -1,28 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>회원가입</title>
   <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  
-   
-      <p class="font-neob text-[20px]">회원가입</p>
-      <p class="font-neom text-[16px] text-gray-500">닉네임</p>
-      <input class="w-[280px] p-2 border border-gray-400 rounded-md user-pw" type="text" name="name" >
-      <p class="font-neom text-[16px] text-gray-500">이메일</p>
-      <input class="w-[280px] p-2 border border-gray-400 rounded-md user-pw" type="text" name="name" >
-      <p class="font-neom text-[16px] text-gray-500">비밀번호</p>
-      <input class="w-[280px] p-2 border border-gray-400 rounded-md user-pw" type="text" name="name" >
-      <p class="font-neom text-[16px] text-gray-500">비밀번호 확인</p>
-      <input class="w-[280px] p-2 border border-gray-400 rounded-md user-pw" type="text" name="name" >
-      <div class="w-[280px] h-[50px] p-2 border bg-purple-400 rounded-md user-pw"><p class="font-neob text-[16px] text-white">회원가입</p></div>
-    <!-- <div class=" w-[400px] h-[650px] rounded-2xl shadow-xl bg-white"></div> -->
-   
- 
+
+<body class="overflow-y-hidden">
+  <div class="w-full h-[950px] flex justify-center items-center bg-gray-100">
+    <div class="flex w-[1300px] h-[730px]  rounded-3xl bg-white shadow1">
+      <div class="w-[900px] h-[730px] p-28 pl-36">
+
+        <p class="font-neoeb text-[28px] pb-5">회원가입</p>
+        <p class="font-neom text-[16px] text-gray-400">별명</p>
+        <input class="mb-5 w-[300px] h-[48px] p-2 border  rounded-md user-name border-white bg-gray-50" type="text" name="name">
+        <p class="font-neom text-[16px] text-gray-400">이메일</p>
+        <input class="mb-5 w-[300px]  h-[48px] p-2 border border-white bg-gray-50 rounded-md user-id" type="text" name="email">
+        <p class="font-neom text-[16px] text-gray-400">비밀번호</p>
+        <input class="mb-5 w-[300px]  h-[48px] p-2 border border-white bg-gray-50 rounded-md user-pw" type="password" name="passwd">
+        <p class="font-neom text-[16px] text-gray-400">비밀번호 확인</p>
+        <input class="mb-10 w-[300px] h-[48px] p-2 border border-white bg-gray-50 rounded-md user-pw" type="password" name="passwdConfirm">
+        <div class="flex justify-center items-center w-[300px] h-[50px] p-2 border bg-purple-200   rounded-md user-pw">
+          <p class="font-neob text-[16px] text-white">회원가입</p>
+        </div>
+      </div>
+      <div
+        class="relative w-[1230px] h-[730px]  rounded-t-3xl rounded-b-3xl bg-gradient-to-b from-purple-200  to-pink-100">
+        <img src="asset/4.png" class="absolute mt-28"></img>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- <div class=" w-[400px] h-[650px] rounded-2xl shadow-xl bg-white"></div> -->
+
+
   <script type="module" src="/js/register.js"></script>
 </body>
+
 </html>

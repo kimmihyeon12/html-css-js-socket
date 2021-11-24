@@ -1,25 +1,46 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>로그인</title>
+  <title>회원가입</title>
   <link rel="stylesheet" href="css/index.css">
 </head>
-<body>
-  
-  <form method="post" action="/login" class="flex flex-col w-[100vw] h-[100vh] justify-center items-center">
-    <h1 class="text-[5vw] mb-4">login</h1>
-    <div class="flex mb-[2vw]"><p class="w-[12vw]">아이디</p><input class="border user-id" type="text" name="email"></div>
-    <div class="flex"><p class="w-[12vw]">비밀번호</p><input class="border user-pw " type="password" name="passwd"></div>
-    <div class="flex">
-      <button type="submit" class="login-btn mt-[2vw] border p-[1vw] hover:bg-[pink] ml-[10vw] ">로그인</button>
-      <button  class="login-btn mt-[2vw] border p-[1vw] hover:bg-[pink] ml-[4vw]"><a href="/register">회원가입</a></button>
+
+<body class="overflow-y-hidden">
+  <div class="w-full h-[950px] flex justify-center items-center bg-gray-100">
+    <div class="flex w-[1300px] h-[750px] border rounded-3xl bg-white shadow-lg">
+      <div class="w-[900px] h-[750px] p-28 pl-36">
+
+        <p class="font-neoeb text-[28px] pb-5 pt-14">로그인</p>
+        
+        <p class="font-neom text-[16px] text-gray-400">이메일</p>
+        <input class="mb-5 w-[300px]  h-[48px] p-2 border border-white bg-gray-50 rounded-md user-id" type="text" name="email">
+        <p class="font-neom text-[16px] text-gray-400">비밀번호</p>
+        <input class="mb-10 w-[300px]  h-[48px] p-2 border border-white bg-gray-50 rounded-md user-pw" type="password" name="passwd">
+        
+        <div class="flex justify-center items-center w-[300px] h-[50px] p-2 border bg-purple-200   rounded-md user-pw mb-2">
+          <p class="font-neob text-[16px] text-white">로그인</p>
+          
+        </div>
+        <div class="flex justify-center items-center w-[300px] h-[50px] p-2 border bg-purple-200   rounded-md user-pw">
+          <p class="font-neob text-[16px] text-white">회원가입</p>
+          
+        </div>
+      </div>
+      <div
+        class="relative w-[1230px] h-[750px]  rounded-t-3xl rounded-b-3xl bg-gradient-to-b from-purple-200  to-pink-100">
+        <img src="asset/5.png" class="absolute mt-28"></img>
+      </div>
     </div>
-  </form>
-  <button class="login-btn mt-[2vw] border p-[1vw] hover:bg-[pink] ml-[4vw]" onclick="location.href='/user/auth'">프랜드가기</button>
+  </div>
+
+
+  <!-- <div class=" w-[400px] h-[650px] rounded-2xl shadow-xl bg-white"></div> -->
+
+
   <script type="module" src="/js/login.js"></script>
 </body>
 

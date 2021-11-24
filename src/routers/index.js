@@ -11,6 +11,10 @@ router.get('/navbar', (req, res) => {
   res.render('navbar')
 })
 
+router.get('/profile', (req, res) => {
+  res.render('profile')
+})
+
 router.get('/', (req, res) => {
   res.render('index')
 })
@@ -26,17 +30,18 @@ router.get('/notice', (req, res) => {
 //로그인
 router.get('/login', async (req, res) => {
   console.log('login')
-  try {
-    console.log(req.cookies.uid)
-    if (req.cookies.uid) {
-      await userController.connect
-      res.redirect('notice')
-    } else {
-      res.render('login')
-    }
-  } catch (e) {
-    res.render('login')
-  }
+  res.render('login')
+  // try {
+  //   console.log(req.cookies.uid)
+  //   if (req.cookies.uid) {
+  //     await userController.connect
+  //     res.redirect('notice')
+  //   } else {
+  //     res.render('login')
+  //   }
+  // } catch (e) {
+  //   res.render('login')
+  // }
 })
 
 router.post('/login', userController.login)
