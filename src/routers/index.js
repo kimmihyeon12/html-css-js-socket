@@ -48,10 +48,6 @@ router.get('/register', (req, res) => {
 })
 router.post('/register', userController.register)
 
-router.get('/friend', (req, res) => {
-  res.render('friendList')
-})
-
 //유저정보 얻어오기
 //모든 유저정보 얻어오기
 router.get('/user', userController.allUser)

@@ -7,6 +7,8 @@ let chatInput
 let sendButton
 const chatEl = document.querySelector('.chat')
 const chatTitle = document.querySelector('.chat-title')
+let otherId
+
 let myUserData
 let connectUsers = []
 
@@ -26,12 +28,15 @@ window.addEventListener('DOMContentLoaded', async () => {
   })
 
   socket.on('chatting', async (data) => {
-    console.log(`chatting ${data.msg}`)
+    console.log(`chatting ${data.id}`)
+    console.log(`other ${otherId}`)
     const { id, name, img, msg, time } = data
     const item = new LiModel(id, name, img, msg, time)
     item.makeLi()
     displayContainer.scrollTop = displayContainer.scrollHeight
-    console.log('chatinput')
+    let chatContent = document.querySelector(`.chat-content${otherId}`)
+    console.log(chatContent)
+    chatContent.innerHTML = msg
     chatInput.value = ''
   })
 
@@ -43,7 +48,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   for (let i = 0; i < userList.length; i++) {
     const li = document.createElement('li')
-    li.className = `li${i} flex items-center mb-2 cursor-pointer`
+    li.className = `li${i} flex items-center mb-2 cursor-pointer `
     li.innerHTML = `
     <div class="relative mr-1">
       <img src=${
@@ -66,14 +71,10 @@ window.addEventListener('DOMContentLoaded', async () => {
     document.querySelector(`.li${i}`).addEventListener('click', () => {
       getChat(userList[i].id, userList[i].name)
     })
-    // document.querySelector(`.user-chat${i}`).addEventListener('click', (e) => {
-    //   const id = userList[i].id
-    //   location.href = `/chat/${id}`
-    // })
   }
 
   // 로그인한 user 'me'로 표시
-  const userData = await fetch('/user/auth')
+  const userData = await fetch(`/user/auth`)
     .then((response) => response.json())
     .then((data) => data)
 
@@ -106,10 +107,10 @@ window.addEventListener('DOMContentLoaded', async () => {
   const chatUser = await fetch(`/mychat`)
     .then((response) => response.json())
     .then((data) => data)
-
+  console.log(chatUser)
   for (let i = 0; i < chatUser.length; i++) {
     const li = document.createElement('li')
-    li.className = `user-chat${i} li${i} flex pt-1 pb-1  rounded-md cursor-pointer `
+    li.className = `user-chat${i} li${i} flex pt-1 pb-1  rounded-md cursor-pointer`
     li.innerHTML = `
     <div class="flex items-center pl-1  ">
       <img src="${
@@ -127,13 +128,14 @@ window.addEventListener('DOMContentLoaded', async () => {
             chatUser[i].time
           }</p>
         </div>
-      <p class="text-[15px] font-neom text-gray-500">${
-        chatUser[i].message_content
-      }</p>
+      <p class="chat-content${
+        chatUser[i].id
+      } text-[15px] font-neom text-gray-500">${chatUser[i].message_content}</p>
       </div>
     </div>`
 
     userChatList.appendChild(li)
+
     document
       .querySelector(`.user-chat${i}`)
       .addEventListener('click', async (e) => {
@@ -166,6 +168,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     chatEl.appendChild(div)
     chatInput = document.querySelector('.chatting-input')
     sendButton = document.querySelector('.send-button')
+
     const otherUserId = id
     const roomNumber = await fetch(`/room`, {
       method: 'POST',
@@ -194,14 +197,23 @@ window.addEventListener('DOMContentLoaded', async () => {
     displayContainer.scrollTop = displayContainer.scrollHeight
 
     socket.emit('joinRoom', roomNumber)
-
-    sendButton.addEventListener('click', async () => {
+    chatInput.addEventListener('keydown', (e) => {
+      if (e.keyCode == 13) {
+        console.log('enter')
+        submit()
+      }
+    })
+    sendButton.addEventListener('click', () => {
+      submit()
+    })
+    async function submit() {
       const param = {
         id: myUserData.id,
         name: myUserData.name,
         img: myUserData.img,
         msg: chatInput.value,
       }
+      otherId = otherUserId
 
       socket.emit('chatting', roomNumber, param)
       await fetch(`/message`, {
@@ -215,8 +227,9 @@ window.addEventListener('DOMContentLoaded', async () => {
           msg: chatInput.value,
         }),
       })
-    })
+    }
   }
+
   function LiModel(id, name, img, msg, time) {
     this.id = id
     this.name = name
