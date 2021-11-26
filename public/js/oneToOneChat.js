@@ -11,7 +11,20 @@ let otherId
 
 let myUserData
 let connectUsers = []
-
+let colorChart = [
+  '#F2E4DC',
+  '#F2E8B3',
+  '#B5D991',
+  '#8C625E',
+  '#D9BD6A',
+  '#8C786C',
+  'yellow-100',
+  '#B3E7F2',
+  '#BFB4B0',
+  '#F2BBC5',
+  '#736F3F',
+  '#F2EFEB',
+]
 window.addEventListener('DOMContentLoaded', async () => {
   socket.on('connectuser', async (users) => {
     console.log('connect')
@@ -48,14 +61,17 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   for (let i = 0; i < userList.length; i++) {
     const li = document.createElement('li')
+
     li.className = `li${i} flex items-center mb-2 cursor-pointer `
     li.innerHTML = `
     <div class="relative mr-1">
       <img src=${
         userList[i].img === null
-          ? 'https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-176213403491/media/magazine_img/magazine_280/5-3-%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg'
-          : userList[i].img
-      } class="  w-[30px] h-[30px]  rounded-3xl border-2 border-purple-200">
+          ? `asset/user1.png`
+          : `asset/user${userList[i].img}.png`
+      } class="  w-[30px] h-[30px] border-2 shadow-md rounded-3xl bg-[${
+      colorChart[userList[i].img]
+    }] bg-opacity-40 ">
         <div
         class=" flex absolute top-[18px] left-[18px] items-center justify-center w-[12px] h-[12px] bg-white rounded-3xl">
           <div class="user-id${
@@ -89,11 +105,19 @@ window.addEventListener('DOMContentLoaded', async () => {
       li.className = `li${i} flex items-center mb-2 bg-purple-100 rounded-lg`
       li.innerHTML = `
       <div class="relative mr-1">
-      <img src="asset/user1.png"
-      } class="w-[30px] h-[30px]  rounded-3xl border-2 border-purple-200">
+      <img src="${
+        userList[i].img === null
+          ? 'asset/user1.png'
+          : `asset/user${userList[i].img}.png`
+      } "
+      } class="w-[30px] h-[30px]  rounded-3xl border-2 border-purple-200 bg-[${
+        colorChart[userList[i].img]
+      }] bg-opacity-40">
         <div
         class=" flex absolute top-[18px] left-[18px] items-center justify-center w-[12px] h-[12px] bg-white rounded-3xl">
-            <div class="user-id${userList[i].id} w-[8px] h-[8px] bg-gray rounded-3xl"></div>
+            <div class="user-id${
+              userList[i].id
+            } w-[8px] h-[8px] bg-gray rounded-3xl"></div>
         </div>
         </div>
       <p class="text-sm text-purple-800 font-neom">${userList[i].name}</p>
@@ -110,18 +134,20 @@ window.addEventListener('DOMContentLoaded', async () => {
   console.log(chatUser)
   for (let i = 0; i < chatUser.length; i++) {
     const li = document.createElement('li')
-    li.className = `user-chat${i} li${i} flex pt-1 pb-1  rounded-md cursor-pointer`
+    li.className = `user-chat${i} li${i} flex pt-1 pb-1   rounded-md cursor-pointer`
     li.innerHTML = `
     <div class="flex items-center pl-1  ">
-      <img src="${
+      <img  src="${
         chatUser[i].img === null
-          ? 'https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-176213403491/media/magazine_img/magazine_280/5-3-%EC%8D%B8%EB%84%A4%EC%9D%BC.jpg'
-          : chatUser[i].img
-      }" class="w-12 h-12 rounded-xl">
+          ? 'asset/user1.png'
+          : `asset/user${chatUser[i].img}.png`
+      }" class="w-12 h-12  rounded-3xl bg-[${
+      colorChart[chatUser[i].img]
+    }] bg-opacity-80">
     </div>
       <div class="ml-3">
         <div class="flex items-center">
-          <p class=" user-name${i} w-[185px] text-[15px] font-neom">${
+          <p class=" user-name${i} w-[185px] text-[15px] font-neosb">${
       chatUser[i].name
     }</p>
           <p class="text-[12px] font-neom  text-gray-500">${

@@ -27,14 +27,3 @@ exports.createRoom = async (req, res) => {
   console.log(`room_id ${room_id}`)
   return res.status(200).json({ room_id: room_id })
 }
-// //룸번호 얻어오기
-// exports.selectRoom = async (req, res) => {
-//   let temp
-//   if (id1 > id2) {
-//     temp = id1
-//     id1 = id2
-//     id2 = temp
-//   }
-//   const result = await roomRepository.select(id1, id2)
-//   console.log(result)
-// }

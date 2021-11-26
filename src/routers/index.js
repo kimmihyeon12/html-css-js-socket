@@ -6,7 +6,7 @@ const userController = require('../controller/user.controller')
 const roomController = require('../controller/room.controller')
 const messageController = require('../controller/message.controller')
 const mychatController = require('../controller/mychat.controller')
-
+const profileController = require('../controller/profile.controller')
 router.get('/navbar', (req, res) => {
   res.render('navbar')
 })
@@ -14,6 +14,7 @@ router.get('/navbar', (req, res) => {
 router.get('/profile', (req, res) => {
   res.render('profile')
 })
+router.post('/profile', profileController.imgUpdate)
 
 router.get('/', (req, res) => {
   res.render('index')

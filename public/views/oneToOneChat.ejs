@@ -11,20 +11,20 @@
 <body>
   <div class="flex w-[100vw] h-[100vh]  p-1 bg-gray-50 ">
   <%-include('navbar')%>
-  <div class="p-3 ml-2 bg-gray-100 rounded-lg shadow-md w-[208px] min-w-[208px] border">
+  <div class="p-3 ml-2 bg-gray-50 rounded-lg shadow-md w-[208px] min-w-[208px] border overflow-y-scroll custom-scroll">
     <p class="text-2xl border-b font-neoeb">개인톡</p>
     <p class="pt-1 mb-2 text-sm text-gray-400 font-neosb">모든사용자</p>
     <ul class='user-list'></ul>
    
   </div>
-  <div class="p-2 ml-2 border rounded-lg shadow-md w-80 min-w-[330px]">
+  <div class="p-2 ml-2 border rounded-lg shadow-md w-80 min-w-[330px] bg-white">
     <p class="mt-1 ml-1 text-xl font-neoeb">전체</p>
     <div class="user-chat-list"></div>
   </div>
   <div class=" w-[960px] min-w-[961px] p-2 ml-2 border rounded-lg shadow-md bg-white">
     <p class="mt-1 ml-1 text-xl chat-title font-neoeb">채팅방</p>
     <div class="mb-2 overflow-x-hidden overflow-y-scroll display-container custom-scroll">
-      <img src="asset/3.png" alt="" class="fixed w-[900px] mt-36 ml-10">
+      <img src="asset/4.png" alt="" class="fixed w-[900px] mt-36 ml-10">
       <div class="chat-list  relative flex flex-col pt-1 pb-1  rounded-md h-[790px]   "></div>
     </div>
     <div class=" chat"></div>

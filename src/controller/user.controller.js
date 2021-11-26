@@ -1,9 +1,5 @@
 const userRepository = require('../repository/user.repository')
 
-// exports.allfind = async (req, res) => {
-//   const userData = await userRepository.selectAll()
-//   return res.status(200).json(userData)
-// }
 exports.onefind = async (req, res) => {
   let id = req.params.id
   const userData = await userRepository.selectOne(id)
@@ -16,38 +12,44 @@ exports.allUser = async (req, res) => {
 }
 
 exports.register = async (req, res) => {
+  console.log(req.body)
   const { name, email, passwd, passwdConfirm } = req.body
   const vaildEmail = await userRepository.selectEmail(email)
   //모든 값 입력받았는지 확인
   if (name === '' || email === '' || passwd === '' || passwdConfirm === '') {
-    res.send(
-      "<script>alert('모든값을 입력해주세요');location.href='/register';</script>",
-    )
-    return
+    return res.status(200).json({
+      msg: '모든값을 입력해주세요',
+      success: false,
+    })
   }
   // 중복된 이메일인지 확인
   if (!vaildEmail.success) {
-    res.send(
-      "<script>alert('이미 존재하는 이메일 입니다');location.href='/register';</script>",
-    )
-    return
+    return res.status(200).json({
+      msg: '이미 존재하는 이메일 입니다',
+      success: false,
+    })
   }
 
   // 비밀번호 , 비밀번호 확인 일치하는지 확인
   if (!(passwd === passwdConfirm)) {
-    res.send(
-      "<script>alert('비밀번호가 일치하지 않습니다');location.href='/register';</script>",
-    )
-    return
+    return res.status(200).json({
+      msg: '비밀번호가 일치하지 않습니다',
+      success: false,
+    })
   }
   // 위 모든조건 확인이 끝나면 db에 유저저장
   const result = await userRepository.insert(name, email, passwd)
   if (result.success) {
-    res.send("<script>alert('환영합니다');location.href='/login';</script>")
-    return
+    return res.status(200).json({
+      userId: result.data.insertId,
+      msg: '회원가입 완료',
+      success: true,
+    })
   } else {
-    res.send("<script>alert('실패');location.href='/register';</script>")
-    return
+    return res.status(200).json({
+      msg: '실패',
+      success: false,
+    })
   }
 }
 
