@@ -8,11 +8,12 @@
   <title>Document</title>
   <link rel="stylesheet" href="css/index.css">
   <link rel="stylesheet" href="css/costom.css">
+  <link rel="stylesheet" href="css/app.css" />
 </head>
 
-<body>
+<body class="light">
   <div class="flex w-[100vw] h-[100vh]  p-1 bg-gray-50 ">
-    
+
     <%-include('navbar')%>
     <div class="z-10 p-2 ml-2 bg-white border rounded-lg shadow-md w-80">
       <div class="flex border-b ">
@@ -29,14 +30,14 @@
       </div>
 
     </div>
-    <div class="relative p-2 ml-2 border rounded-lg shadow-md bg-white w-[1200px] overflow-y-scroll overflow-x-hidden custom-scroll  ">
+    <div
+      class="relative p-2 ml-2 border rounded-lg shadow-md bg-white w-[1200px] overflow-y-scroll overflow-x-hidden custom-scroll  ">
       <p class="mt-1 text-xl border-b font-neoeb">공지</p>
       <!-- <img src="asset/noticeimg.png" class="absolute opacity-20"> -->
       <div class="flex flex-col mt-2">
         <div class="pb-2 pl-3 mb-2 bg-gray-100 rounded-2xl hover:bg-gradient-to-b from-purple-200 to-pink-100">
           <div class="flex items-center pt-2 mt-2 ">
-            <img src="asset/operator.png"
-              class=" w-12 pt-[6px] pb-[6px] pl-2 pr-2 bg-purple-300    rounded-2xl">
+            <img src="asset/operator.png" class=" w-12 pt-[6px] pb-[6px] pl-2 pr-2 bg-purple-300    rounded-2xl">
             <div class="ml-2">
               <p class="text-base font-neob">운영자</p>
               <div class="flex">
@@ -47,22 +48,23 @@
           </div>
           <p class="text-gray-500 ml-14 font-neom w-[1000px]">안녕하세요, 담당자님! 이미 메시지 받으셨을 수 있지만, 큰 개편과 서버 다운이 예정되어 있기 때문에
             공지봇으로 다시 한 번 공지드려요.
-            1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다. 1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다. 1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다. 1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다.
+            1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다. 1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다. 1. 2021년 6월 26일 (토), 채널톡
+            전문상담기능이 출시됩니다. 1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다.
             1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다.
-  
+
             채널톡으로 수많은 상담을 처리하고 계신 고객님들의 피드백을 듣고, 전반적인 상담 경험을 개선하는 업데이트를 준비했어요. 상담을 더욱 효율적으로 관리하고, 더욱 세세하게 커스텀을 해보세요.
             전문상담기능에 대한 내용은 출시 이후에 더욱 자세하게 안내드리겠습니다.
-  
+
             2. 2021년 6월 25일 (금) 오후 11시 ~ 6월 26일 (토) 오전 8시 서버 다운 안내
-  
-            대규모 시스템 업그레이드로 인해, 서버 다운이 예정됩니다. 서버 다운 기간 동안에는 담당자님과, 채널을 이용하는 고객들 모두 채널톡의 전반적인 서비스 이용이 불가능합니다. 보수적인 예측으로 9시간을
+
+            대규모 시스템 업그레이드로 인해, 서버 다운이 예정됩니다. 서버 다운 기간 동안에는 담당자님과, 채널을 이용하는 고객들 모두 채널톡의 전반적인 서비스 이용이 불가능합니다. 보수적인 예측으로
+            9시간을
             예상하고 있지만, 새벽 중으로 조기 마무리 될 수 있습니다. 서둘러서 끝낼 수 있도록 노력하겠습니다. 서버 다운 정보등 자세한 서비스 상태는 아래 링크에서 확인하실 수 있습니다.</p>
 
         </div>
         <div class="pb-2 pl-3 mb-2 bg-gray-100 rounded-2xl hover:bg-gradient-to-b from-purple-200 to-pink-100">
           <div class="flex items-center pt-2 mt-2 ">
-            <img src="asset/operator.png"
-              class=" w-12 pt-[6px] pb-[6px] pl-2 pr-2 bg-purple-300    rounded-2xl">
+            <img src="asset/operator.png" class=" w-12 pt-[6px] pb-[6px] pl-2 pr-2 bg-purple-300    rounded-2xl">
             <div class="ml-2">
               <p class="text-base font-neob">운영자</p>
               <div class="flex">
@@ -73,19 +75,20 @@
           </div>
           <p class="text-gray-500 ml-14 font-neom w-[1000px]">안녕하세요, 담당자님! 이미 메시지 받으셨을 수 있지만, 큰 개편과 서버 다운이 예정되어 있기 때문에
             공지봇으로 다시 한 번 공지드려요.
-            1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다. 1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다. 1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다. 1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다.
+            1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다. 1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다. 1. 2021년 6월 26일 (토), 채널톡
+            전문상담기능이 출시됩니다. 1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다.
             1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다.
-  
+
             내
-  
-            대규모 시스템 업그레이드로 인해, 서버 다운이 예정됩니다. 서버 다운 기간 동안에는 담당자님과, 채널을 이용하는 고객들 모두 채널톡의 전반적인 서비스 이용이 불가능합니다. 보수적인 예측으로 9시간을
+
+            대규모 시스템 업그레이드로 인해, 서버 다운이 예정됩니다. 서버 다운 기간 동안에는 담당자님과, 채널을 이용하는 고객들 모두 채널톡의 전반적인 서비스 이용이 불가능합니다. 보수적인 예측으로
+            9시간을
             예상하고 있지만, 새벽 중으로 조기 마무리 될 수 있습니다. 서둘러서 끝낼 수 있도록 노력하겠습니다. 서버 다운 정보등 자세한 서비스 상태는 아래 링크에서 확인하실 수 있습니다.</p>
 
         </div>
         <div class="pb-2 pl-3 mb-2 bg-gray-100 rounded-2xl hover:bg-gradient-to-b from-purple-200 to-pink-100">
           <div class="flex items-center pt-2 mt-2 ">
-            <img src="asset/operator.png"
-              class=" w-12 pt-[6px] pb-[6px] pl-2 pr-2 bg-purple-300    rounded-2xl">
+            <img src="asset/operator.png" class=" w-12 pt-[6px] pb-[6px] pl-2 pr-2 bg-purple-300    rounded-2xl">
             <div class="ml-2">
               <p class="text-base font-neob">운영자</p>
               <div class="flex">
@@ -96,15 +99,15 @@
           </div>
           <p class="text-gray-500 ml-14 font-neom w-[1000px]">안녕하세요, 담당자님! 이미 메시지 받으셨을 수 있지만, 큰 개편과 서버 다운이 예정되어 있기 때문에
             공지봇으로 다시 한 번 공지드려요.
-            1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다. 1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다. 1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다. 1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다.
-            
+            1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다. 1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다. 1. 2021년 6월 26일 (토), 채널톡
+            전문상담기능이 출시됩니다. 1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다.
+
             예상하고 있지만, 새벽 중으로 조기 마무리 될 수 있습니다. 서둘러서 끝낼 수 있도록 노력하겠습니다. 서버 다운 정보등 자세한 서비스 상태는 아래 링크에서 확인하실 수 있습니다.</p>
 
         </div>
         <div class="pb-2 pl-3 mb-2 bg-gray-100 rounded-2xl hover:bg-gradient-to-b from-purple-200 to-pink-100">
           <div class="flex items-center pt-2 mt-2 ">
-            <img src="asset/operator.png"
-              class=" w-12 pt-[6px] pb-[6px] pl-2 pr-2 bg-purple-300    rounded-2xl">
+            <img src="asset/operator.png" class=" w-12 pt-[6px] pb-[6px] pl-2 pr-2 bg-purple-300    rounded-2xl">
             <div class="ml-2">
               <p class="text-base font-neob">운영자</p>
               <div class="flex">
@@ -115,27 +118,80 @@
           </div>
           <p class="text-gray-500 ml-14 font-neom w-[1000px]">안녕하세요, 담당자님! 이미 메시지 받으셨을 수 있지만, 큰 개편과 서버 다운이 예정되어 있기 때문에
             공지봇으로 다시 한 번 공지드려요.
-            1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다.  
-  
+            1. 2021년 6월 26일 (토), 채널톡 전문상담기능이 출시됩니다.
+
             채널톡으로 수많은 상담을 처리하고 계신 고객님들의 피드백을 듣고, 전반적인 상담 경험을 개선하는 업데이트를 준비했어요. 상담을 더욱 효율적으로 관리하고, 더욱 세세하게 커스텀을 해보세요.
             전문상담기능에 대한 내용은 출시 이후에 더욱 자세하게 안내드리겠습니다.
-  
+
             2. 2021년 6월 25일 (금) 오후 11시 ~ 6월 26일 (토) 오전 8시 서버 다운 안내
-  
-            대규모 시스템 업그레이드로 인해, 서버 다운이 예정됩니다. 서버 다운 기간 동안에는 담당자님과, 채널을 이용하는 고객들 모두 채널톡의 전반적인 서비스 이용이 불가능합니다. 보수적인 예측으로 9시간을
+
+            대규모 시스템 업그레이드로 인해, 서버 다운이 예정됩니다. 서버 다운 기간 동안에는 담당자님과, 채널을 이용하는 고객들 모두 채널톡의 전반적인 서비스 이용이 불가능합니다. 보수적인 예측으로
+            9시간을
             예상하고 있지만, 새벽 중으로 조기 마무리 될 수 있습니다. 서둘러서 끝낼 수 있도록 노력하겠습니다. 서버 다운 정보등 자세한 서비스 상태는 아래 링크에서 확인하실 수 있습니다.</p>
 
         </div>
-       
-    
+
+
       </div>
 
     </div>
-    <div class="p-2 ml-2 border rounded-lg shadow-md w-80">
+    <!-- <div class="p-2 ml-2 bg-white border rounded-lg shadow-md w-80"> -->
+      <div class="flex flex-col items-center justify-center p-2 ml-2">
+        <img src="asset/user1.png" class="mt-5 bg-purple-100 rounded-full shadow-md w-36" alt="">
 
-    </div>
+        <p class="font-neob text-[20px]">호리둥절</p>
+
+        <p class="font-neom text-[15px] text-gray-400">2_5_3_1@naver.com</p>
+    
+        <div class="mt-4 calendar">
+          <div class="calendar-header">
+              <span class="month-picker" id="month-picker">February</span>
+              <div class="year-picker">
+                  <span class="year-change" id="prev-year">
+                      <pre><</pre>
+                  </span>
+                  <span id="year">2021</span>
+                  <span class="year-change" id="next-year">
+                      <pre>></pre>
+                  </span>
+              </div>
+          </div>
+          <div class="calendar-body">
+              <div class="calendar-week-day">
+                  <div>월</div>
+                  <div>화</div>
+                  <div>수</div>
+                  <div>목</div>
+                  <div>금</div>
+                  <div>토</div>
+                  <div>일</div>
+              </div>
+              <div class="calendar-days"></div>
+          </div>
+          <div class="calendar-footer">
+              <div class="toggle">
+                  <span>다크모드</span>
+                  <div class="dark-mode-switch">
+                      <div class="dark-mode-switch-ident"></div>
+                  </div>
+              </div>
+          </div>
+          <div class="month-list"></div>
+      </div>
+      <div class=" w-[308px] h-[300px] overflow-hidden rounded-xl mt-4">
+        <img src="asset/bg4.png" class="h-[200px]" alt="">
+      </div>
+     
+      <!-- <img class="mt-5 shadow-lg w-[308px] h-[300px] rounded-[15px] src='asset/background.jpg'"> -->
+       
+   
+  
+
+
+      </div>
+    <!-- </div> -->
   </div>
-
+  <script src="/js/calendar.js"></script>
 </body>
 
 </html>

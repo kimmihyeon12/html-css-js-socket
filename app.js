@@ -16,9 +16,11 @@ require('dotenv').config()
 const cors = require('cors')
 
 const database = require('./src/config/index')
+const { disconnect } = require('process')
 database.connector()
 app.use(cors())
 let users = []
+let multiConnectingUsers = []
 let roomNumber
 io.on('connection', (socket) => {
   console.log('-----------------')
@@ -41,7 +43,19 @@ io.on('connection', (socket) => {
       time: moment(new Date()).format('h:mm A'),
     })
   })
+  socket.on('multichatting', function (data) {
+    console.log(`chatting ${data.msg}`)
+    const { id, name, img, msg } = data
+    io.emit('multichatting', {
+      id,
+      name,
+      img,
+      msg,
+      time: moment(new Date()).format('h:mm A'),
+    })
+  })
   socket.on('connectuser', (user) => {
+    console.log(user)
     for (let i = 0; i < users.length; i++) {
       if (users[i].id == user) {
         users.splice(i, 1)
@@ -55,6 +69,8 @@ io.on('connection', (socket) => {
     io.emit('connectuser', users)
   })
   socket.on('disconnect', () => {
+    console.log(socket.id)
+    console.log('disconnect---------------------------')
     let disconnectUser
     for (let i = 0; i < users.length; i++) {
       if (users[i].socket_id == socket.id) {
@@ -63,10 +79,49 @@ io.on('connection', (socket) => {
         users.splice(i, 1)
       }
     }
+    for (let i = 0; i < multiConnectingUsers.length; i++) {
+      if (multiConnectingUsers[i].socket_id == socket.id) {
+        console.log(multiConnectingUsers[i])
+        disconnectUser = multiConnectingUsers[i]
+        multiConnectingUsers.splice(i, 1)
+      }
+    }
     io.emit('disconnectuser', disconnectUser)
+    io.emit('multidisconnectuser', disconnectUser)
     console.log('소켓종료')
   })
+  socket.on('multiconnectuser', (user) => {
+    console.log('user')
+    console.log(user)
+    for (let i = 0; i < multiConnectingUsers.length; i++) {
+      if (multiConnectingUsers[i].id == user.id) {
+        multiConnectingUsers.splice(i, 1)
+      }
+    }
+    multiConnectingUsers.push({
+      id: user.id,
+      img: user.img,
+      name: user.name,
+      email: user.email,
+      socket_id: socket.id,
+    })
+    console.log(multiConnectingUsers)
+    io.emit('multiconnectuser', multiConnectingUsers)
+  })
+  socket.on('multidisconnectuser', () => {
+    console.log('multidisconnectuser')
+    let disconnectUser
+    for (let i = 0; i < multiConnectingUsers.length; i++) {
+      if (multiConnectingUsers[i].socket_id == socket.id) {
+        console.log(multiConnectingUsers[i])
+        disconnectUser = multiConnectingUsers[i]
+        multiConnectingUsers.splice(i, 1)
+      }
+    }
+    io.emit('multidisconnectuser', disconnectUser)
+  })
 })
+
 app.use(cookieParser())
 app.use(
   session({

@@ -9,7 +9,7 @@ const chatEl = document.querySelector('.chat')
 const chatTitle = document.querySelector('.chat-title')
 let otherId
 
-let myUserData
+let connectingUser
 let connectUsers = []
 let colorChart = [
   '#F2E4DC',
@@ -99,7 +99,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   const userId = Number(userData.data.userId)
   for (let i = 0; i < userList.length; i++) {
     if (userId === userList[i].id) {
-      myUserData = userList[i]
+      connectingUser = userList[i]
       document.querySelector(`.li${i}`).remove()
       const li = document.createElement('li')
       li.className = `li${i} flex items-center mb-2 bg-purple-100 rounded-lg`
@@ -127,7 +127,7 @@ window.addEventListener('DOMContentLoaded', async () => {
       friendList.prepend(li)
     }
   }
-  //chat
+  //현재 접속한 `나`와 채팅중인 사람 가져오기
   const chatUser = await fetch(`/mychat`)
     .then((response) => response.json())
     .then((data) => data)
@@ -161,7 +161,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     </div>`
 
     userChatList.appendChild(li)
-
+    // 클릭시 채팅방 접속!
     document
       .querySelector(`.user-chat${i}`)
       .addEventListener('click', async (e) => {
@@ -177,6 +177,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         getChat(chatUser[i].id, chatUser[i].name)
       })
   }
+  //채팅방 접속시
   async function getChat(id, name) {
     chatTitle.innerHTML = `${name}님과 채팅방`
     while (chatEl.hasChildNodes()) {
@@ -189,13 +190,15 @@ window.addEventListener('DOMContentLoaded', async () => {
     <div class="flex">
       <input type="text" value="" class="chatting-input w-[830px] h-[80px] rounded-md border ">
       <button type="text" class="send-button w-[100px] h-[80px] rounded-md text-center bg-purple-300 ml-2 text-white  font-neob"> 전송 </button>
-    `
+    </div>
+      `
     div.innerHTML = dom
     chatEl.appendChild(div)
     chatInput = document.querySelector('.chatting-input')
     sendButton = document.querySelector('.send-button')
 
     const otherUserId = id
+    //채팅방 접속시 룸 번호 알아내기
     const roomNumber = await fetch(`/room`, {
       method: 'POST',
       headers: {
@@ -207,6 +210,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     })
       .then((response) => response.json())
       .then((data) => data.room_id)
+    //채팅방접속시 룸에 있는 메세지 가져오기
     const backupMessage = await fetch(`/message/${roomNumber}`)
       .then((response) => response.json())
       .then((data) => data)
@@ -234,9 +238,9 @@ window.addEventListener('DOMContentLoaded', async () => {
     })
     async function submit() {
       const param = {
-        id: myUserData.id,
-        name: myUserData.name,
-        img: myUserData.img,
+        id: connectingUser.id,
+        name: connectingUser.name,
+        img: connectingUser.img,
         msg: chatInput.value,
       }
       otherId = otherUserId
@@ -249,7 +253,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         },
         body: JSON.stringify({
           room_id: roomNumber,
-          sender_id: myUserData.id,
+          sender_id: connectingUser.id,
           msg: chatInput.value,
         }),
       })
@@ -266,15 +270,19 @@ window.addEventListener('DOMContentLoaded', async () => {
     this.makeLi = () => {
       const li = document.createElement('div')
       let dom
-      if (!(Number(myUserData.id) === this.id)) {
+      if (!(Number(connectingUser.id) === this.id)) {
         dom = `
           <div class="flex flex-col pl-1">
-          <div class="flex items-center"><img src="asset/user4.png"
-              class=" w-[20px] bg-purple-300 pl-[5px] pr-[5px] pt-[6px] pb-[6px] rounded-[18px]">
+          <div class="flex items-center"><img src="asset/user${this.img}.png"
+              class=" w-[25px]   rounded-[18px] bg-[${
+                colorChart[this.img]
+              }] bg-opacity-40 ">
             <p class="ml-1 text-[12px] font-neob">${this.name}</p>
           </div>
           <div class="flex items-end">
-            <div class="max-w-[380px]   p-2 mt-1 text-sm rounded-lg bg-gray-50 font-neom">${this.msg}</div>
+            <div class="max-w-[380px]   p-2 mt-1 text-sm rounded-lg bg-gray-50 font-neom">${
+              this.msg
+            }</div>
             <p class="ml-1 text-[10px] font-neor">2:20AM</p>
           </div>
         </div>`

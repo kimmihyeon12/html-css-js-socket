@@ -7,6 +7,12 @@ const roomController = require('../controller/room.controller')
 const messageController = require('../controller/message.controller')
 const mychatController = require('../controller/mychat.controller')
 const profileController = require('../controller/profile.controller')
+const calenderController = require('../controller/calender.controller')
+const multiRoomMessageController = require('../controller/multiRoomMessage.controller')
+router.get('/test', (req, res) => {
+  res.render('test')
+})
+
 router.get('/navbar', (req, res) => {
   res.render('navbar')
 })
@@ -86,4 +92,12 @@ router.post('/room', roomController.createRoom)
 //메세지 만들기!
 router.get('/message/:room_id', messageController.showMessage)
 router.post('/message', messageController.newMessage)
+router.post('/multiRoomMessage', multiRoomMessageController.newMessage)
+router.get('/multiRoomMessage', multiRoomMessageController.showMessage)
+
+router.get('/fullcalendar', (req, res) => {
+  res.render('fullCalendar')
+})
+router.get('/calender', calenderController.showCalender)
+router.post('/calender', calenderController.createCalender)
 module.exports = router

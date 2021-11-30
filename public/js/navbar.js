@@ -1,4 +1,4 @@
-console.log(document.location.href.split('/')[3])
+// console.log(document.location.href.split('/')[3])
 const bell = document.querySelector('.fa-bell')
 const user = document.querySelector('.fa-user')
 const comments = document.querySelector('.fa-comments')
