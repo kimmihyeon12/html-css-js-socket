@@ -100,4 +100,5 @@ router.get('/fullcalendar', (req, res) => {
 })
 router.get('/calender', calenderController.showCalender)
 router.post('/calender', calenderController.createCalender)
+router.put('/calender', calenderController.updateDateCalender)
 module.exports = router

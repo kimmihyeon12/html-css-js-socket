@@ -11,8 +11,9 @@
 </head>
 
 <body class="overflow-y-hidden">
-  <form  method="post" action="/login" class="w-full h-[950px] flex justify-center items-center bg-purple-200 bg-opacity-80">
-    <div class="flex w-[1300px] h-[730px]  rounded-3xl shadow1">
+  
+  <form  method="post" action="/login" class="w-full h-[950px] flex justify-center items-center bg-purple-200 bg-opacity-80 ">
+    <div class="flex w-[1300px] h-[730px]  rounded-3xl shadow1 z-50">
       <div class="w-[900px] h-[730px] p-28 pl-36 rounded-tl-3xl rounded-bl-3xl bg-white ">
 
         <p class="font-neoeb text-[28px] pb-5 pt-14">로그인</p>
@@ -37,12 +38,21 @@
       </div>
     </div>
   </form>
-
+  <div id="particles-js" class="absolute top-0 left-0 w-full h-screen"></div>
 
   <!-- <div class=" w-[400px] h-[650px] rounded-2xl shadow-xl bg-white"></div> -->
 
 
   <script type="module" src="/js/login.js"></script>
+  <script src="/js/particles.min.js"></script>
+  <script>
+    window.addEventListener('load', function() {
+      /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
+      particlesJS.load('particles-js', 'asset/json/particlesjs-config.json', function() {
+        console.log('callback - particles.js config loaded');
+      });
+    })
+  </script>
 </body>
 
 </html>

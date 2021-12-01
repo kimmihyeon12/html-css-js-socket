@@ -20,8 +20,9 @@
     html,
     body {
       overflow: hidden;
-      font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+
       font-size: 14px;
+      font-family: "NeoL";
     }
 
     /* 캘린더 위의 해더 스타일(날짜가 있는 부분) */
@@ -30,13 +31,68 @@
       padding-left: 1em;
       padding-right: 1em;
     }
+
+    .fc-toolbar-chunk {
+      display: flex;
+
+    }
+
+    .fc-toolbar-chunk>div {
+      display: flex;
+    }
+
+    .fc-toolbar-title {
+      font-family: "NeoEB";
+    }
+
+    button {
+      background-color: transparent !important;
+      color: black !important;
+      border: none !important;
+    }
+
+    button:focus {
+
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    th .fc-scrollgrid-sync-inner {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    th {
+      border-right: 1px solid white !important;
+    }
+
+    th:last-child {
+      border-right: 1px solid #ddd !important;
+ 
+    }
+
+    .fc-daygrid-event {
+      padding: 4px 8px;
+      background: white;
+      border: 1px solid rgba(209, 213, 219,0.5) !important;
+
+    }
+
+    .fc-event-title {
+      color: black !important;
+    }
   </style>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 </head>
 
-<body style="padding:30px;" class="relative">
+<body  class="relative">
   <!-- calendar 태그 -->
-  <div id='calendar-container'>
-    <div id='calendar'></div>
+  
+   
+    <div id='calendar-container ' class="flex w-[100vw] h-[100vh]  p-1 bg-white ">
+    <%-include('navbar')%>
+    <div id='calendar' class="p-3 ml-2 bg-gray-100 rounded-lg shadow-md w-[1835px] min-w-[1835px]   border"></div>
   </div>
   <script>
     (function () {
@@ -45,15 +101,16 @@
         var calendarEl = $('#calendar')[0];
         // full-calendar 생성하기
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          height: '700px', // calendar 높이 설정
+          height: '930px', // calendar 높이 설정
           expandRows: true, // 화면에 맞게 높이 재설정
           slotMinTime: '08:00', // Day 캘린더에서 시작 시간
           slotMaxTime: '20:00', // Day 캘린더에서 종료 시간
           // 해더에 표시할 툴바
           headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+            left: 'title',
+            center: '',
+            right: 'prev,today,next'
+            //  right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
           },
           initialView: 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
           //   initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
@@ -62,97 +119,123 @@
           selectable: true, // 달력 일자 드래그 설정가능
           nowIndicator: true, // 현재 시간 마크
           dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
-          locale: 'ko', // 한국어 설정
+          locale: 'en', // 한국어 설정
           eventAdd: function (obj) { // 이벤트가 추가되면 발생하는 이벤트
-            console.log('eventAdd')
-            console.log(obj);
+             console.log('eventAdd');
+          //   //  console.log(document.querySelectorAll('.fc-event-title-container').length);
+          // //   document.querySelector('.fc-event-title-container').style.display="flex"
+                  
+          // //           const li = document.createElement('div')
+          // //     li.innerHTML = `zzzz`
+          // // console.log(obj.event._def.publicId)
+          // console.log(document.querySelectorAll('.fc-event-title-container'))
           },
           eventChange: function (obj) { // 이벤트가 수정되면 발생하는 이벤트
-            console.log('eventChange')
-            console.log(obj);
+            console.log(obj)
+            fetch(`/calender`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                cal_id: obj.event.id,
+                startTime: obj.event.startStr,
+                endTime: obj.event.endStr,
+              }),
+            })
+            
           },
           eventRemove: function (obj) { // 이벤트가 삭제되면 발생하는 이벤트
-            console.log('eventRemove')
-            console.log(obj);
+            // console.log('eventRemove')
+            // console.log(obj);
           },
           select: async function (arg) { // 캘린더에서 드래그로 이벤트를 생성할 수 있다.
-            console.log('select')
             let modalContainer = document.querySelector('.modal-container')
-            modalContainer.style.display="block"
-         /*   var title = prompt('Event Title:');
-            if (title) {
-              calendar.addEvent({
-                title: title,
-                start: arg.start,
-                end: arg.end,
-                allDay: arg.allDay
-              })
-            }
-            calendar.unselect()*/
+            modalContainer.style.display = "block"
           },
           // 이벤트
           events: [
-          
-             fetch(`/calender`)
+
+            fetch(`/calender`)
             .then((response) => response.json())
             .then((data) => {
-
-              result = data.data;
-              console.log(result)
-              for (let i = 0; i < result.length; i++) {
+              let result = data.data;
           
+              for (let i = 0; i < result.length; i++) {
                 let startTime = result[i]['startTime'];
                 let endTime = result[i]['endTime'];
-                console.log(startTime)
-                console.log(endTime)
+                
                 calendar.addEvent({
+                  id: result[i]['id'],
                   title: result[i]['title'],
-                  start: '2021-11-16',
-                  end: '2021-11-18',
+                  start: startTime,
+                  end: endTime,
                 })
+                
               }
-
+    
+              const eventContainers = document.querySelectorAll('.fc-event-title-container');
+              eventContainers.forEach(el=> {
+            
+                el.style.display="flex";
+                el.style.alignItems='center' ;
+                const li = document.createElement('div')
+                li.innerHTML = `<i class="text-[15px] far fa-check-circle ju mr-1 mt-1 text-gray-300"></i>`
+                el.prepend(li)
+              });
+              
             })
- 
+
           ]
         });
         // 캘린더 랜더링
         calendar.render();
+
       });
     })();
+
+    console.log(document.querySelector('.fc-event-title-container'))
   </script>
   <div class="absolute top-0 z-10 hidden bg-white border modal-container w-96 h-96">
     모달창
     <div class="flex flex-col">
-      <div class="flex"> <p class="w-16">제목</p><input type="text" value="" class="title w-[200px] h-[30px] rounded-sm border "></div>
-      <div class="flex"> <p class="w-16">시작일</p><input type="date" value="" class="start-time w-[200px] h-[30px] rounded-sm border "></div>
-      <div class="flex"> <p class="w-16">끝나는일</p><input type="date" value="" class="end-time w-[200px] h-[30px] rounded-sm border "></div></div>
+      <div class="flex">
+        <p class="w-16">제목</p><input type="text" value="" class="title w-[200px] h-[30px] rounded-sm border ">
+      </div>
+      <div class="flex">
+        <p class="w-16">시작일</p><input type="date" value="" class="start-time w-[200px] h-[30px] rounded-sm border ">
+      </div>
+      <div class="flex">
+        <p class="w-16">끝나는일</p><input type="date" value="" class="end-time w-[200px] h-[30px] rounded-sm border ">
+      </div>
+    </div>
     <div>
       <button class="w-12 bg-gray-200 submit-btn">확인</button>
       <button class="w-12 bg-gray-200 cencal-btn">취소</button>
     </div>
-    </div>
-    <script>
-        document.querySelector('.submit-btn').addEventListener('click',async ()=>{
-          const titleValue = document.querySelector('.title').value;
-          const startTimeValue = document.querySelector('.start-time').value;
-          const endTimeValue = document.querySelector('.end-time').value;
-        await fetch(`/calender`, {
+  </div>
+  <script defer>
+    document.querySelector('.submit-btn').addEventListener('click', async () => {
+      const titleValue = document.querySelector('.title').value;
+      const startTimeValue = document.querySelector('.start-time').value;
+      const endTimeValue = document.querySelector('.end-time').value;
+      await fetch(`/calender`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          title:titleValue,
-          startTime:startTimeValue,
-          endTime:endTimeValue,
+          title: titleValue,
+          startTime: startTimeValue,
+          endTime: endTimeValue,
         }),
       })
-      })
-        document.querySelector('.cencal-btn').addEventListener('click',function(){
-        document.querySelector('.modal-container').style.display="none"
-      })
-    </script>
+      location.reload();
+    })
+    document.querySelector('.cencal-btn').addEventListener('click', function () {
+      document.querySelector('.modal-container').style.display = "none"
+    })
+  </script>
 </body>
 
 </html>
