@@ -16,15 +16,6 @@
   <link rel="stylesheet" href="css/index.css">
   <link rel="stylesheet" href="css/costom.css">
   <style>
-    /* body 스타일 */
-    html,
-    body {
-      overflow: hidden;
-
-      font-size: 14px;
-      font-family: "NeoL";
-    }
-
     /* 캘린더 위의 해더 스타일(날짜가 있는 부분) */
     .fc-header-toolbar {
       padding-top: 1em;
@@ -45,7 +36,7 @@
       font-family: "NeoEB";
     }
 
-    button {
+    .fc-prev-button,.fc-next-button,.fc-today-button {
       background-color: transparent !important;
       color: black !important;
       border: none !important;
@@ -69,30 +60,43 @@
 
     th:last-child {
       border-right: 1px solid #ddd !important;
- 
+
     }
 
     .fc-daygrid-event {
       padding: 4px 8px;
-      background: white;
-      border: 1px solid rgba(209, 213, 219,0.5) !important;
+      background: rgba(255, 208, 0, 0.781);
+      border: none !important;
+      font-family: "Neom";
+      color: white !important;
+      margin-bottom: 3px;
 
     }
+    
 
     .fc-event-title {
-      color: black !important;
+      color: white !important;
+    }
+
+    .fc-day-sun {
+      color: #e31b23
+    }
+
+    /* 일요일 */
+    .fc-day-sat {
+      color: #e31b23
     }
   </style>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 </head>
 
-<body  class="relative">
+<body class="overflow-y-hidden">
   <!-- calendar 태그 -->
-  
-   
-    <div id='calendar-container ' class="flex w-[100vw] h-[100vh]  p-1 bg-white ">
+
+  <div class="flex w-[100vw] h-[100vh]  p-1 bg-gray-50 ">
     <%-include('navbar')%>
-    <div id='calendar' class="p-3 ml-2 bg-gray-100 rounded-lg shadow-md w-[1835px] min-w-[1835px]   border"></div>
+    <div id='calendar' class=" ml-2 bg-white rounded-lg shadow-md w-[1835px] min-w-[1835px]   border"></div>
   </div>
   <script>
     (function () {
@@ -121,17 +125,26 @@
           dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
           locale: 'en', // 한국어 설정
           eventAdd: function (obj) { // 이벤트가 추가되면 발생하는 이벤트
-             console.log('eventAdd');
-          //   //  console.log(document.querySelectorAll('.fc-event-title-container').length);
-          // //   document.querySelector('.fc-event-title-container').style.display="flex"
-                  
-          // //           const li = document.createElement('div')
-          // //     li.innerHTML = `zzzz`
-          // // console.log(obj.event._def.publicId)
-          // console.log(document.querySelectorAll('.fc-event-title-container'))
+            //   //  console.log(document.querySelectorAll('.fc-event-title-container').length);
+            // //   document.querySelector('.fc-event-title-container').style.display="flex"
+
+            // //           const li = document.createElement('div')
+            // //     li.innerHTML = `zzzz`
+            // // console.log(obj.event._def.publicId)
+            // console.log(document.querySelectorAll('.fc-event-title-container'))
           },
           eventChange: function (obj) { // 이벤트가 수정되면 발생하는 이벤트
             console.log(obj)
+             
+            /*const eventContainer = document.querySelectorAll('.fc-event-title-container')[obj.event.id+1]
+
+
+            eventContainer.style.display = "flex";
+            eventContainer.style.alignItems = 'center';
+            const li = document.createElement('div')
+            li.innerHTML =
+              `<i class="text-[15px] far fa-check-circle ju mr-1 mt-1 text-gray-300"></i>`
+            eventContainer.prepend(li)*/
             fetch(`/calender`, {
               method: 'PUT',
               headers: {
@@ -141,9 +154,10 @@
                 cal_id: obj.event.id,
                 startTime: obj.event.startStr,
                 endTime: obj.event.endStr,
+                
               }),
             })
-            
+
           },
           eventRemove: function (obj) { // 이벤트가 삭제되면 발생하는 이벤트
             // console.log('eventRemove')
@@ -151,39 +165,40 @@
           },
           select: async function (arg) { // 캘린더에서 드래그로 이벤트를 생성할 수 있다.
             let modalContainer = document.querySelector('.modal-container')
-            modalContainer.style.display = "block"
+            modalContainer.style.display = "flex"
           },
           // 이벤트
           events: [
-
             fetch(`/calender`)
             .then((response) => response.json())
             .then((data) => {
               let result = data.data;
-          
-              for (let i = 0; i < result.length; i++) {
+            for (let i = 0; i < result.length; i++) {
                 let startTime = result[i]['startTime'];
                 let endTime = result[i]['endTime'];
-                
+                console.log(result[i]['id'])
+                console.log(result[i]['title'])
                 calendar.addEvent({
                   id: result[i]['id'],
                   title: result[i]['title'],
                   start: startTime,
                   end: endTime,
+                 
                 })
-                
+
               }
-    
+
               const eventContainers = document.querySelectorAll('.fc-event-title-container');
-              eventContainers.forEach(el=> {
-            
-                el.style.display="flex";
-                el.style.alignItems='center' ;
+              eventContainers.forEach(el => {
+
+                el.style.display = "flex";
+                el.style.alignItems = 'center';
                 const li = document.createElement('div')
-                li.innerHTML = `<i class="text-[15px] far fa-check-circle ju mr-1 mt-1 text-gray-300"></i>`
+                li.innerHTML =
+                  `<i class="text-[15px] far fa-check-circle ju mr-1 mt-1 text-white"></i>`
                 el.prepend(li)
               });
-              
+
             })
 
           ]
@@ -196,25 +211,35 @@
 
     console.log(document.querySelector('.fc-event-title-container'))
   </script>
-  <div class="absolute top-0 z-10 hidden bg-white border modal-container w-96 h-96">
-    모달창
-    <div class="flex flex-col">
-      <div class="flex">
-        <p class="w-16">제목</p><input type="text" value="" class="title w-[200px] h-[30px] rounded-sm border ">
+  
+    <div class="absolute top-0 z-10 items-center justify-center hidden w-full h-screen bg-black bg-opacity-25 border modal-container">
+      <div class="p-8 bg-white w-96 h-80 rounded-xl">
+        <p class="font-neosb text-[25px] ml-36">일정</p>
+        
+        <div class="flex flex-col font-neom text-[17px]">
+          <div class="flex items-center mt-3">
+            <p class="w-16">제목</p><input type="text" value="" class="title w-[250px] h-[35px]  rounded-sm border h ">
+          </div>
+          <div class="flex items-center mt-3">
+            <p class="w-16">시작일</p><input type="date" value="" class="start-time w-[250px] h-[35px] rounded-sm border ">
+          </div>
+          <div class="flex items-center mt-3">
+            <p class="w-16">끝나는일</p><input type="date" value="" class="end-time w-[250px] h-[35px] rounded-sm border ">
+          </div>
+        </div>
+        <div class=" font-neom text-[17px] text-white   mt-6">
+          <button class="pt-2 pb-2 mr-2 bg-purple-600 rounded-md pl-[60px] pr-[60px] submit-btn">확인</button>
+          <button class="pt-2 pb-2 bg-purple-600 rounded-md pl-[60px] pr-[60px] cencal-btn">취소</button>
+        </div>
       </div>
-      <div class="flex">
-        <p class="w-16">시작일</p><input type="date" value="" class="start-time w-[200px] h-[30px] rounded-sm border ">
+
       </div>
-      <div class="flex">
-        <p class="w-16">끝나는일</p><input type="date" value="" class="end-time w-[200px] h-[30px] rounded-sm border ">
-      </div>
-    </div>
-    <div>
-      <button class="w-12 bg-gray-200 submit-btn">확인</button>
-      <button class="w-12 bg-gray-200 cencal-btn">취소</button>
-    </div>
+      
+
   </div>
+  
   <script defer>
+   
     document.querySelector('.submit-btn').addEventListener('click', async () => {
       const titleValue = document.querySelector('.title').value;
       const startTimeValue = document.querySelector('.start-time').value;

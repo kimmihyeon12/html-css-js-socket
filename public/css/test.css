@@ -1,0 +1,85 @@
+ 
+
+svg {
+  overflow: visible;
+}
+
+.wobble {
+  position: relative;
+  width: 256px;
+  height: 56px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  overflow: visible;
+  outline: none;
+}
+
+.wobble svg {
+  /*   filter: drop-shadow(0px 8px 16px rgba(139, 92, 246, 0.75)); */
+  overflow: visible;
+}
+
+.wobble #btnPath {
+  stroke: transparent;
+  stroke-width: 3;
+}
+
+.wobble > * {
+  pointer-events: none !important;
+}
+
+.wobble:focus #btnPath {
+  stroke-width: 3;
+  stroke: #fcd34d;
+}
+
+.wobble svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.toggle-points {
+}
+
+.blob {
+  position: absolute;
+  bottom: -25%;
+  right: -25%;
+  width: 50vw;
+}
+
+.blob path {
+  fill: #ddd6fe;
+}
+
+.blob:nth-of-type(2) {
+  top: -25%;
+  left: -25%;
+  bottom: auto;
+  right: auto;
+}
+
+.debug-text {
+  font-family: "Nunito", sans-serif;
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  cursor: pointer;
+}
+
+.debug-dot {
+  opacity: 0;
+}
+
+.debug .debug-dot {
+  opacity: 1 !important;
+}

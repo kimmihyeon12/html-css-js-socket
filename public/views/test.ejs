@@ -1,71 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="css/index.css">
+  <title>CodePen - A Very Wobbly Liquid SVG Button ✨</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="css/test.css">
+
 </head>
 <body>
-  <div class="test-contanier">
-    <div class="flex w-[700px] h-[100px] border">
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-    </div>
-    <div class="flex w-[700px] h-[100px] border">
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-    </div>
-    <div class="flex w-[700px] h-[100px] border">
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-    </div>
-    <div class="flex w-[700px] h-[100px] border">
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-    </div>
-    <div class="flex w-[700px] h-[100px] border">
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-      <div class="w-[100px] border"></div>
-    </div>
-    <div class="flex flex-col border absolute top-[0]">
-      <div class="flex justify-end w-[700px]">
-        <div class="w-[500px] h-[100px] border  bg-purple-100">
-        </div>
-      </div>
-    
-      
-      <div class="w-[500px] h-[100px] border   bg-purple-100">
-      </div>
-      </div>
-  </div>
-  
-  <script   src="/js/test.js" defer></script>
+<!-- partial:index.partial.html -->
+<button class="wobble">
+  로그인 
+  <svg width="256" height="56" viewBox="0 0 256 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="gradient" gradientTransform="rotate(90)">
+        <stop offset="5%" stop-color="#ddd6fe" />
+        <stop offset="95%" stop-color="#ddd6fe" />
+      </linearGradient>
+      <filter id="shadow" filterUnits="userSpaceOnUse" height="200" width="512" y="0">
+        <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="white" flood-opacity="0.3" />
+      </filter>
+    </defs>
+    <path id="baseBtnPath" d="M0 28C0 12.536 12.536 0 28 0H228C243.464 0 256 12.536 256 28C256 43.464 243.464 56 228 56H28C12.536 56 0 43.464 0 28Z" fill="transparent" />
+  </svg>
+</button>
+ 
+ 
+<!-- partial -->
+  <script type="module" src="js/test.js"></script>
+
 </body>
 </html>
