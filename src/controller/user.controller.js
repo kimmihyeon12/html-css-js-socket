@@ -1,12 +1,14 @@
 const userRepository = require('../repository/user.repository')
 
 exports.onefind = async (req, res) => {
+  console.log('onefind')
   let id = req.params.id
   const userData = await userRepository.selectOne(id)
   //console.log(userData)
   return res.status(200).json(userData)
 }
 exports.allUser = async (req, res) => {
+  console.log('allUser')
   const userData = await userRepository.selectAll()
   return res.status(200).json(userData)
 }

@@ -136,59 +136,8 @@
 
     </div>
     <!-- <div class="p-2 ml-2 bg-white border rounded-lg shadow-md w-80"> -->
-      <div class="flex flex-col items-center justify-center p-2 ml-2">
-        <img src="asset/user1.png" class="mt-5 bg-purple-100 rounded-full shadow-md w-36" alt="">
-
-        <p class="font-neob text-[20px]">호리둥절</p>
-
-        <p class="font-neom text-[15px] text-gray-400">2_5_3_1@naver.com</p>
-    
-        <div class="mt-4 calendar">
-          <div class="calendar-header">
-              <span class="month-picker" id="month-picker">February</span>
-              <div class="year-picker">
-                  <span class="year-change" id="prev-year">
-                      <pre><</pre>
-                  </span>
-                  <span id="year">2021</span>
-                  <span class="year-change" id="next-year">
-                      <pre>></pre>
-                  </span>
-              </div>
-          </div>
-          <div class="calendar-body">
-              <div class="calendar-week-day">
-                  <div>월</div>
-                  <div>화</div>
-                  <div>수</div>
-                  <div>목</div>
-                  <div>금</div>
-                  <div>토</div>
-                  <div>일</div>
-              </div>
-              <div class="calendar-days"></div>
-          </div>
-          <div class="calendar-footer">
-              <div class="toggle">
-                  <span>다크모드</span>
-                  <div class="dark-mode-switch">
-                      <div class="dark-mode-switch-ident"></div>
-                  </div>
-              </div>
-          </div>
-          <div class="month-list"></div>
-      </div>
-      <div class=" w-[308px] h-[300px] overflow-hidden rounded-xl mt-4">
-        <img src="asset/bg4.png" class="h-[200px]" alt="">
-      </div>
-     
-      <!-- <img class="mt-5 shadow-lg w-[308px] h-[300px] rounded-[15px] src='asset/background.jpg'"> -->
-       
-   
-  
-
-
-      </div>
+      
+    <%-include('rightContent')%>
     <!-- </div> -->
   </div>
   <script src="/js/calendar.js"></script>

@@ -16,7 +16,7 @@
     <ul class='user-list'></ul>
   </div>
   
-  <div class="relative w-[1300px] min-w-[1300px] p-2 ml-2 border rounded-lg shadow-md bg-white">
+  <div class="relative w-[1320px] min-w-[1300px] p-2 ml-2 border rounded-lg shadow-md bg-white">
     <p class="mt-1 ml-1 text-xl font-neoeb">채팅방</p>
     <div class="mb-2 overflow-x-hidden overflow-y-scroll display-container custom-scroll">
       <img src="asset/4.png" alt="" class="fixed w-[900px] mt-36 ml-10">
@@ -30,8 +30,9 @@
       </div>
     </div>
   </div>
-  <div class="p-2 ml-2 border rounded-lg shadow-md w-80"></div>
+  <%-include('rightContent')%>
 </div>
+
 </div>
 <script src="/socket.io/socket.io.js"></script>
 <script type="module" src="/js/multiChat.js"></script>
