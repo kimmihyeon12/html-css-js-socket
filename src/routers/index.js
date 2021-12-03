@@ -61,6 +61,7 @@ router.get('/register', (req, res) => {
 router.post('/register', userController.register)
 
 //유저정보 얻어오기
+
 //모든 유저정보 얻어오기
 router.get('/user', userController.allUser)
 //현재 로그인한 id 얻어오기
@@ -98,7 +99,7 @@ router.get('/multiRoomMessage', multiRoomMessageController.showMessage)
 router.get('/fullcalendar', (req, res) => {
   res.render('fullCalendar')
 })
-router.get('/calender', calenderController.showCalender)
+router.get('/calender/:id', calenderController.showCalender)
 router.post('/calender', calenderController.createCalender)
 router.put('/calender', calenderController.updateDateCalender)
 module.exports = router

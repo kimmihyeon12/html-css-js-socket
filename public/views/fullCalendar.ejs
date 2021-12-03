@@ -99,8 +99,35 @@
     <div id='calendar' class=" ml-2 bg-white rounded-lg shadow-md w-[1835px] min-w-[1835px]   border"></div>
   </div>
   <script>
+
+ 
     (function () {
-      $(function () {
+      $( async function () {
+        const userId = await fetch(`/user/auth`)
+  .then((response) => response.json())
+  .then((data) => data.data)
+    const uId = userId.userId
+    document.querySelector('.submit-btn').addEventListener('click', async () => {
+      const titleValue = document.querySelector('.title').value;
+      const startTimeValue = document.querySelector('.start-time').value;
+      const endTimeValue = document.querySelector('.end-time').value;
+      await fetch(`/calender`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id:uId,
+          title: titleValue,
+          startTime: startTimeValue,
+          endTime: endTimeValue,
+        }),
+      })
+      location.reload();
+    })
+    document.querySelector('.cencal-btn').addEventListener('click', function () {
+      document.querySelector('.modal-container').style.display = "none"
+    })
         // calendar element 취득
         var calendarEl = $('#calendar')[0];
         // full-calendar 생성하기
@@ -151,6 +178,7 @@
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
+                id:uId,
                 cal_id: obj.event.id,
                 startTime: obj.event.startStr,
                 endTime: obj.event.endStr,
@@ -169,7 +197,7 @@
           },
           // 이벤트
           events: [
-            fetch(`/calender`)
+            fetch(`/calender/${uId}`)
             .then((response) => response.json())
             .then((data) => {
               let result = data.data;
@@ -238,29 +266,7 @@
 
   </div>
   
-  <script defer>
    
-    document.querySelector('.submit-btn').addEventListener('click', async () => {
-      const titleValue = document.querySelector('.title').value;
-      const startTimeValue = document.querySelector('.start-time').value;
-      const endTimeValue = document.querySelector('.end-time').value;
-      await fetch(`/calender`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          title: titleValue,
-          startTime: startTimeValue,
-          endTime: endTimeValue,
-        }),
-      })
-      location.reload();
-    })
-    document.querySelector('.cencal-btn').addEventListener('click', function () {
-      document.querySelector('.modal-container').style.display = "none"
-    })
-  </script>
 </body>
 
 </html>

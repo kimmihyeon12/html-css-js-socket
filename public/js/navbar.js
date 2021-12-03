@@ -1,4 +1,11 @@
-// console.log(document.location.href.split('/')[3])
+const userId = await fetch(`/user/auth`)
+  .then((response) => response.json())
+  .then((data) => data.data)
+
+const userData = await fetch(`/user/${userId.userId}`)
+  .then((response) => response.json())
+  .then((data) => data.data)
+
 const bell = document.querySelector('.fa-bell')
 const user = document.querySelector('.fa-user')
 const comments = document.querySelector('.fa-comments')
@@ -61,10 +68,6 @@ calendar.addEventListener('click', () => {
   //   'fas fa-comments text-lg  pl-[15px] pr-[15px] pt-[16px] pb-[16px] text-[#c086c5] border-2 shadow-md rounded-[300px] bg-purple-200 duration-500'
   location.href = '/fullcalendar'
 })
-userFriends.addEventListener('click', () => {
-  bell.classList = 'fas fa-bell text-lg  p-4 text-[#a7a7aa]'
-  comments.classList = 'fas fa-comments text-lg  p-4 text-[#a7a7aa]'
-  user.classList = 'fas fa-user text-lg  p-4 text-[#a7a7aa]'
-  userFriends.classList =
-    'fas fa-user-friends text-lg  pl-[15px] pr-[15px] pt-[16px] pb-[16px] text-[#c086c5] border-2 shadow-md rounded-[300px] bg-purple-200 duration-500'
-})
+const img = document.querySelector('.img')
+
+img.src = `asset/user${userData[0].img}.png`
